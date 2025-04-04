@@ -14,7 +14,12 @@ h1 {
 }
 
 #map {
-  height: 80vh;
+  height: 100vh;  /* Take the full viewport height */
   width: 100%;
-  border-top: 3px solid #2d2d2d;
+}
+
+@media (max-width: 600px) {
+  h1 {
+    font-size: 2rem;  /* Adjust title size for smaller screens */
+  }
 }
