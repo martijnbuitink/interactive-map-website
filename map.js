@@ -1,4 +1,9 @@
-const map = L.map('map').setView([52.37, 4.89], 13); // Amsterdam coordinates
+const map = L.map('map', {
+  scrollWheelZoom: false, // Disable zooming with mouse wheel on mobile
+  dragging: true, // Enable dragging for touch devices
+  touchZoom: true,  // Enable pinch zoom for touch devices
+  tap: true  // Enable tapping for markers and interactions
+}).setView([52.37, 4.89], 13); // Amsterdam coordinates
 
 // Custom tile background (optional, simplified design)
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
