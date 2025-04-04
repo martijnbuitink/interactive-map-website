@@ -1,19 +1,21 @@
 body {
   margin: 0;
-  font-family: 'Arial', sans-serif;
-  background: #f4f4f4;
-  text-align: center;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  background: #fefbd8;
 }
 
 h1 {
   padding: 1rem;
-  background-color: #ffe082;
+  background-color: #ff6f61;
+  color: white;
   margin: 0;
-  font-size: 2rem;
-  color: #333;
+  font-size: 2.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  text-shadow: 1px 1px #00000033;
 }
 
 #map {
   height: 90vh;
   width: 100%;
+  border-top: 4px dashed #ff6f61;
 }
