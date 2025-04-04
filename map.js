@@ -1,19 +1,17 @@
-// Initialize map
 const map = L.map('map').setView([52.37, 4.89], 13); // Amsterdam
 
-// Add base tiles
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '&copy; OpenStreetMap contributors'
+// Fancy looking tiles (Stamen Watercolor or others)
+L.tileLayer('https://stamen-tiles.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg', {
+  attribution: '&copy; Stamen, OpenStreetMap contributors'
 }).addTo(map);
 
-// Example data
 const mapPoints = [
   {
     lat: 52.370216,
     lng: 4.895168,
     theme: 'art',
     title: 'Colorful Mural',
-    description: 'A beautiful street mural in the heart of the city.',
+    description: 'A beautiful street mural.',
     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Graffiti_Mural.jpg/640px-Graffiti_Mural.jpg'
   },
   {
@@ -26,30 +24,28 @@ const mapPoints = [
   }
 ];
 
-// Theme to color
 function getColorByTheme(theme) {
   switch (theme) {
-    case 'art': return 'red';
-    case 'history': return 'blue';
+    case 'art': return 'deeppink';
+    case 'history': return 'cornflowerblue';
     default: return 'gray';
   }
 }
 
-// Add points
 mapPoints.forEach(point => {
   const marker = L.circleMarker([point.lat, point.lng], {
-    radius: 8,
+    radius: 10,
     fillColor: getColorByTheme(point.theme),
-    color: '#000',
-    weight: 1,
+    color: '#222',
+    weight: 2,
     opacity: 1,
-    fillOpacity: 0.8
+    fillOpacity: 0.9
   }).addTo(map);
 
   const popupContent = `
     <strong>${point.title}</strong><br>
     ${point.description}<br>
-    <img src="${point.image}" alt="${point.title}" width="200"/>
+    <img src="${point.image}" alt="${point.title}" width="200" style="margin-top: 5px; border-radius: 8px;" />
   `;
   marker.bindPopup(popupContent);
 });
