@@ -13,18 +13,25 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 // Abstract map points with custom markers
 const mapPoints = [
   {
-    lat: 52.370216,
-    lng: 4.895168,
-    title: 'Colorful Mural',
-    description: 'A beautiful street mural in the city.',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Colorful_canal_houses_at_golden_hour_in_Damrak_avenue_Amsterdam_the_Netherlands.jpg/640px-Colorful_canal_houses_at_golden_hour_in_Damrak_avenue_Amsterdam_the_Netherlands.jpg'
+    lat: 52.369124,
+    lng: 4.889797,
+    title: 'Begijnhof 34',
+    description: 'Hier is 1 van de 2 huizen te vinden met de oudste gevel van Amsterdam (ca. 1530). Het zijn geheel houten huizen, maar van het latere type: ze zijn hoger en hebben stenen zijmuren.',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Begijnhof%2C_Amsterdam.jpg/532px-Begijnhof%2C_Amsterdam.jpg'
   },
   {
     lat: 52.3667,
     lng: 4.8945,
-    title: 'Old Church',
-    description: 'One of the oldest buildings in Amsterdam.',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Oude_Kerk.jpg/640px-Oude_Kerk.jpg'
+    title: 'Zeedijk 1',
+    description: 'Hier is 1 van de 2 huizen te vinden met de oudste gevel van Amsterdam (ca. 1530). Het zijn geheel houten huizen, maar van het latere type: ze zijn hoger en hebben stenen zijmuren.',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Aepjen-amsterdam.jpg/520px-Aepjen-amsterdam.jpg'
+  },
+  {
+    lat: 52.366103,
+    lng: 4.931851,
+    title: 'Dijkdoorbraak',
+    description: 'Op 5 maart 1651 werden Amsterdam en omgeving getroffen door een ongekend felle stormvloed. Spectaculair was een dubbele doorbraak van de dijk die we tegenwoordig de Zeeburgerdijk noemen. Het water kwam met zoveel geweld door de zeewering, dat ook de meer landinwaarts gelegen ringdijk van de Watergraafsmeer bezweek. Je ziet nog steeds een lager gebied waar de dijk doorbrak. ',
+    image: 'https://onsamsterdam.nl/uploads/headerContent/_1400x787_crop_center-center_82_line/dijkdoorbraak.jpg'
   }
 ];
 
