@@ -17,7 +17,7 @@ const mapPoints = [
     lng: 4.895168,
     title: 'Colorful Mural',
     description: 'A beautiful street mural in the city.',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Graffiti_Mural.jpg/640px-Graffiti_Mural.jpg'
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Colorful_canal_houses_at_golden_hour_in_Damrak_avenue_Amsterdam_the_Netherlands.jpg/640px-Colorful_canal_houses_at_golden_hour_in_Damrak_avenue_Amsterdam_the_Netherlands.jpg'
   },
   {
     lat: 52.3667,
