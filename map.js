@@ -18,7 +18,7 @@ const mapPoints = [
     title: 'Begijnhof 34',
     description: 'Hier is 1 van de 2 huizen te vinden met de oudste gevel van Amsterdam (ca. 1530). Het zijn geheel houten huizen, maar van het latere type: ze zijn hoger en hebben stenen zijmuren.',
     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Begijnhof%2C_Amsterdam.jpg/532px-Begijnhof%2C_Amsterdam.jpg',
-    color: '#ff6f61' // Color for this point (coral red)
+    color: '#ff6f61' // coral red
   },
   {
     lat: 52.3763121,
@@ -26,7 +26,7 @@ const mapPoints = [
     title: 'Zeedijk 1',
     description: 'Hier is 1 van de 2 huizen te vinden met de oudste gevel van Amsterdam (ca. 1530). Het zijn geheel houten huizen, maar van het latere type: ze zijn hoger en hebben stenen zijmuren.',
     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Aepjen-amsterdam.jpg/520px-Aepjen-amsterdam.jpg',
-    color: '#4caf50' // Color for this point (green)
+    color: '#ff6f61' // coral red
   },
   {
     lat: 52.366103,
@@ -34,7 +34,7 @@ const mapPoints = [
     title: 'Dijkdoorbraak',
     description: 'Op 5 maart 1651 werden Amsterdam en omgeving getroffen door een ongekend felle stormvloed. Spectaculair was een dubbele doorbraak van de dijk die we tegenwoordig de Zeeburgerdijk noemen.',
     image: 'https://onsamsterdam.nl/uploads/headerContent/_1400x787_crop_center-center_82_line/dijkdoorbraak.jpg',
-    color: '#3f51b5' // Color for this point (blue)
+    color: '#3f51b5' // blue
   }
 ];
 
