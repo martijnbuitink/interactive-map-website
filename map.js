@@ -67,6 +67,14 @@ const mapPoints = [
     description: 'Dit poortje is nog een overblijfsel van het vrouwentuchthuis, het Spinhuis. Vrouwen die hier moesten zitten vanwege ‘lichte zeden’ of armoede werden verplicht om te spinnen. Bizar genoeg ligt het nu tegenover de Universiteitsbibliotheek — van tucht naar kennis!',
     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Spinhuispoortje.jpg/390px-Spinhuispoortje.jpg',
     color: '#ff6f61' // coral red
+  },
+  {
+    lat: 52.372060,
+    lng: 4.905604,
+    title: 'Montelbaanstoren (Oudeschans 2)',
+    description: 'De Montelbaanstoren werd in 1516 gebouwd als verdedigingstoren aan de Oude Schans. Later kreeg hij een sierlijke opbouw, maar door de slappe grond begon hij te verzakken. Men zegt dat paarden en kabels nodig waren om hem recht te houden. De klok liep zó slecht, dat Amsterdammers hem liefkozend “Malle Jaap” gingen noemen.',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Oudeschans.jpg/500px-Oudeschans.jpg',
+    color: '#ff6f61' // coral red
   }
 ];
 
