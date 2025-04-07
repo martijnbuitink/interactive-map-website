@@ -53,6 +53,14 @@ const mapPoints = [
     color: '#3f51b5' // blue
   },
   {
+    lat: 52.37303253574737,
+    lng: 4.896940492292269,
+    title: 'De sloppen en gangen van Amsterdam',
+    description: 'Huisnummer 162 springt ineens door naar nr. 194! Waar zijn nummer 164, 166, 168, 170.. et cetera dan gebleven?! Amsterdam zit vol kleine straatjes en nauwe steegjes. Die kennen we allemaal en maken onze binnenstad ook zo knus. Maar het kan nog veel krapper. Naast de stegen kent Mokum namelijk ook talloze nog smallere doorgangetjes tussen de huizen. En die noemen we ‘sloppen en gangen’. Bijna altijd doodlopend en soms met binnentuin erachter. In die doodlopende gangetjes liepen de woningen gewoon door en de huisnummers dus ook.',
+    image: 'https://amsterdam-walks.nl/wp-content/uploads/2022/06/Schoenmakersgang-Bernard-Eilers-1930-De-Van-der-Lindes-voor-hun-woning-Dienst-Volkshuisvesting-1933-980x420.jpg',
+    color: '#3f51b5' // blue
+  },
+  {
     lat: 52.366505,
     lng: 4.904601,
     title: 'De M.S. Vaz Diasbrug (brug 238)',
