@@ -31,10 +31,27 @@ const mapPoints = [
   {
     lat: 52.366103,
     lng: 4.931851,
-    title: 'Dijkdoorbraak',
-    description: 'Op 5 maart 1651 werden Amsterdam en omgeving getroffen door een ongekend felle stormvloed. Spectaculair was een dubbele doorbraak van de dijk die we tegenwoordig de Zeeburgerdijk noemen.',
+    title: 'Zeedburgerdijk/Borneostraat',
+    description: 'Op 5 maart 1651 werden Amsterdam en omgeving getroffen door een ongekend felle stormvloed. Spectaculair was een dubbele doorbraak van de dijk die we tegenwoordig de Zeeburgerdijk noemen. Het water had zo\'n kracht dat het een gat achterliet. Je ziet op dit punt dat de grond nog steeds lager ligt.',
     image: 'https://onsamsterdam.nl/uploads/headerContent/_1400x787_crop_center-center_82_line/dijkdoorbraak.jpg',
     color: '#3f51b5' // blue
+  },
+  {
+    lat: 52.370059,
+    lng: 4.891800,
+    title: 'Het mirakel van Amsterdam (Enge Kapelsteeg 2)',
+    description: 'In 1345 gebeurde er een wonder in Amsterdam. Een hostie bleef ongeschonden in het vuur na een zieke man het had uitgebraakt. Dit werd het Mirakel van Amsterdam en wordt elk jaar op 15 maart herdacht. Op de plek waar dit gebeurde is een kapel gebouwd, als je naar de overkant van de straat loopt op het Rokin dan kan je de koepel nog zien! Ook is op het Rokin een Romeinse zuil geplaatst die naar dit mirakel verwijst.',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Eucharistic_Miracle_of_Amsterdam_by_Jacob_Cornelisz_1518.png/390px-Eucharistic_Miracle_of_Amsterdam_by_Jacob_Cornelisz_1518.png',
+    color: '#ff6f61' // coral red
+  }
+  ,
+  {
+    lat: 52.370059,
+    lng: 4.891800,
+    title: 'De Papagaai (Kalverstraat 58)',
+    description: 'De Papegaai, officieel bekend als de Sint Petrus en Pauluskerk, is een verborgen juweeltje in Amsterdam. Oorspronkelijk was hier een schuilkerk: de katholieken komen bijeen in het woonhuis van de welgestelde familie Bout (een vogelhandelaar, vandaar De Papegaai). Als deze ruimte te klein wordt, wordt er in 1710 achter het huis een kerkje gebouwd.',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/De_Papegaai.JPG/399px-De_Papegaai.JPG',
+    color: '#ff6f61' // coral red
   }
 ];
 
