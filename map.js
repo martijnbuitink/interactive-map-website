@@ -59,6 +59,14 @@ const mapPoints = [
     description: 'Een piepklein, verborgen kerkhof midden in de stad, met een bijna sprookjesachtige sfeer. De naam komt van een voormalig kasteeltje dat op deze plek stond. Je mag er gewoon rondlopen en het voelt als een geheime tuin.',
     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Entree_Huis_te_Vraag.JPG/390px-Entree_Huis_te_Vraag.JPG',
     color: '#3f51b5' // blue
+  },
+  {
+    lat: 52.370676,
+    lng: 4.896327,
+    title: 'Het Spinhuis (Oudezijds Achterburgwal 185)',
+    description: 'Dit poortje is nog een overblijfsel van het vrouwentuchthuis, het Spinhuis. Vrouwen die hier moesten zitten vanwege ‘lichte zeden’ of armoede werden verplicht om te spinnen. Bizar genoeg ligt het nu tegenover de Universiteitsbibliotheek — van tucht naar kennis!',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Spinhuispoortje.jpg/390px-Spinhuispoortje.jpg',
+    color: '#ff6f61' // coral red
   }
 ];
 
