@@ -37,6 +37,14 @@ const mapPoints = [
     color: '#3f51b5' // blue
   },
   {
+    lat: 52.374555399238716,
+    lng: 4.889638584261016,
+    title: 'Jan Roodenpoortstoren',
+    description: 'De Jan Roodenpoort was vanaf omstreeks 1480 een kleine doorgang in de vestingmuur van 1425, gelegen bij de Torensteeg. Opvallend is de fundering van de toren. Hier staan de palen zo dicht bij elkaar dat het een nagenoeg massieve houten fundering is geworden. Eigenlijk staat de fundering de bouw van een nieuwe brug in de weg. Er wordt besloten de brug met een vierde boog uit te breiden, waarbij aan beide zijden van de toren kelders ontstaan. In de noordelijke kelder was een uitbreiding van de keuken, de zuidelijke kelder bevatte de uitbreiding van de gevangenis. De toren is inmiddels afgebroken, maar wie zich nu onder de gewelven van de brug waagt, kan zich, mede door de nog steeds aanwezige tralies, met wat verbeeldingskracht het ellendige gevang voorstellen. Na 2001 in de keitjesbestrating van de Torensluis de contouren van de toren met een andere kleur keitjes zichtbaar gemaakt.',
+    image: 'https://www.amsterdamsebinnenstad.nl/binnenstad/199/torensluis.jpg',
+    color: '#3f51b5' // blue
+  },
+  {
     lat: 52.366505,
     lng: 4.904601,
     title: 'De M.S. Vaz Diasbrug (brug 238)',
