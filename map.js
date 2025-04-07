@@ -131,6 +131,14 @@ const mapPoints = [
     description: 'Hier vertrokken schepen naar de zee, en hier namen geliefden afscheid. De naam komt van "Schreyhoeckstoren" (scherpe hoek), maar mensen dachten lang dat het “schreien” betekende – huilende vrouwen dus.',
     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Schreierstoren2.jpg/399px-Schreierstoren2.jpg',
     color: '#ff6f61' // coral red
+  },
+  {
+    lat: 52.36775644339379,
+    lng: 4.891051830883985,
+    title: 'De Rasphuispoort',
+    description: 'In het Rasphuis – de eerste moderne Amsterdamse gevangenis – moesten dwangarbeiders Braziliaans hout tot poeder raspen en werden zij zwaar gestraft, soms zelfs onder water gezet. Later werd hier, ironisch genoeg, het eerste overdekte zwembad van Amsterdam gebouwd. In het reliëf op de poort zie je een wagen met Braziliaans hout en de Latijnse inscriptie die vrij vertaald luidt: ‘Wilde beesten moet men temmen’.',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Rasphuis0.jpg/300px-Rasphuis0.jpg',
+    color: '#ff6f61' // coral red
   }
 ];
 
