@@ -107,6 +107,14 @@ const mapPoints = [
     description: 'De Montelbaanstoren werd in 1516 gebouwd als verdedigingstoren aan de Oude Schans. Later kreeg hij een sierlijke opbouw, maar door de slappe grond begon hij te verzakken. Men zegt dat paarden en kabels nodig waren om hem recht te houden. De klok liep zó slecht, dat Amsterdammers hem liefkozend “Malle Jaap” gingen noemen.',
     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Oudeschans.jpg/500px-Oudeschans.jpg',
     color: '#ff6f61' // coral red
+  },
+  {
+    lat: 52.376454512517356,
+    lng: 4.902270687792611,
+    title: 'De Schreierstoren',
+    description: 'Hier vertrokken schepen naar de zee, en hier namen geliefden afscheid. De naam komt van "Schreyhoeckstoren" (scherpe hoek), maar mensen dachten lang dat het “schreien” betekende – huilende vrouwen dus.',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Schreierstoren2.jpg/399px-Schreierstoren2.jpg',
+    color: '#ff6f61' // coral red
   }
 ];
 
