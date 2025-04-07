@@ -46,8 +46,8 @@ const mapPoints = [
   }
   ,
   {
-    lat: 52.370059,
-    lng: 4.891800,
+    lat: 52.371164,
+    lng: 4.891840,
     title: 'De Papagaai (Kalverstraat 58)',
     description: 'De Papegaai, officieel bekend als de Sint Petrus en Pauluskerk, is een verborgen juweeltje in Amsterdam. Oorspronkelijk was hier een schuilkerk: de katholieken komen bijeen in het woonhuis van de welgestelde familie Bout (een vogelhandelaar, vandaar De Papegaai). Als deze ruimte te klein wordt, wordt er in 1710 achter het huis een kerkje gebouwd.',
     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/De_Papegaai.JPG/399px-De_Papegaai.JPG',
