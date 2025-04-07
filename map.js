@@ -37,6 +37,14 @@ const mapPoints = [
     color: '#3f51b5' // blue
   },
   {
+    lat: 52.36030775459272,
+    lng: 4.888105913270245,
+    title: 'Commiezenhuisje',
+    description: 'Tot 1840 stond hier de Weteringpoort, een stadspoort uit 1668. Poort is een groot woord: feitelijk was het een onderdoorgang door de stadswal. Buiten de poort lag een lange houten brug over de Singelgracht. De poort werd afgebroken omdat de stad het onderhoud te duur vond. Ze werd vooral gebruikt voor de heffing van accijns op allerlei ingevoerde goederen. Hier kwamen veel groenten langs die via de Boerenwetering werden aangevoerd. Tegenwoordig zit hier het rioolgemaal in dat rioolwater helemaal naar west pompt!',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Commiezenhuis_Weteringschans.JPG/1200px-Commiezenhuis_Weteringschans.JPG',
+    color: '#3f51b5' // blue
+  },
+  {
     lat: 52.374555399238716,
     lng: 4.889638584261016,
     title: 'Jan Roodenpoortstoren',
