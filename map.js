@@ -13,6 +13,38 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 // Abstract map points with custom markers and color
 const mapPoints = [
   {
+    lat: 52.347010,
+    lng: 4.848853,
+    title: 'Huis te Vraag (Rijnsburgstraat 51)',
+    description: 'Een piepklein, verborgen kerkhof midden in de stad, met een bijna sprookjesachtige sfeer. De naam komt van een voormalig kasteeltje dat op deze plek stond. Je mag er gewoon rondlopen en het voelt als een geheime tuin.',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Entree_Huis_te_Vraag.JPG/390px-Entree_Huis_te_Vraag.JPG',
+    color: '#3f51b5' // blue
+  },
+  {
+    lat: 52.366103,
+    lng: 4.931851,
+    title: 'Zeedburgerdijk/Borneostraat',
+    description: 'Op 5 maart 1651 werden Amsterdam en omgeving getroffen door een ongekend felle stormvloed. Spectaculair was een dubbele doorbraak van de dijk die we tegenwoordig de Zeeburgerdijk noemen. Het water had zo\'n kracht dat het een gat achterliet. Je ziet op dit punt dat de grond nog steeds lager ligt.',
+    image: 'https://onsamsterdam.nl/uploads/headerContent/_1400x787_crop_center-center_82_line/dijkdoorbraak.jpg',
+    color: '#3f51b5' // blue
+  },
+  {
+    lat: 52.368126,
+    lng: 4.904566,
+    title: 'Mr. Visserplein',
+    description: 'De Amsterdamse binnenstad wordt steeds meer autoluw. Hoe anders was het eind jaren 60 toen de gemeente juist ruim baan voor het opkomende vervoersmiddel maakte. Diverse stedenbouwkundigen hebben hun hoofd gebogen over plannen om een soort stadssnelweg dwars door de Nieuwmarktbuurt richting het Centraal Stadion aan te leggen. Bestaande huizen werden al gesloopt voor deze nieuwe weg. Uiteindelijk kwam deze verkeersader er door veel en harde protesten van Amsterdammers er niet, maar een verkeersplein met tunnels werd wel aangelegd: het Mr. Visserplein.',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Mr_visserplein_stopera_mozes_en_aaronkerk.jpg/500px-Mr_visserplein_stopera_mozes_en_aaronkerk.jpg',
+    color: '#3f51b5' // blue
+  },
+  {
+    lat: 52.366505,
+    lng: 4.904601,
+    title: 'De M.S. Vaz Diasbrug (brug 238)',
+    description: 'Wist je dat deze brug een schuilkelder tegen nucleaire aanvallen bevat? Deze basculebrug in Amsterdam-Centrum verbindt het Jonas Daniel Meijerplein met de Weesperstraat en overspant de Nieuwe Herengracht. De brug is vernoemd naar Mozes Salomon Vaz Dias, oprichter van het eerste journalistieke persbureau van Europa. De huidige brug dateert uit 1964. Aan de ene kant van het water zit de machinekamer en aan de andere kant een schuilkelder.',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Brug_238%2C_overzicht2.jpg/399px-Brug_238%2C_overzicht2.jpg',
+    color: '#008000' // green
+  },
+  {
     lat: 52.369124,
     lng: 4.889797,
     title: 'Begijnhof 34',
@@ -29,14 +61,6 @@ const mapPoints = [
     color: '#ff6f61' // coral red
   },
   {
-    lat: 52.366103,
-    lng: 4.931851,
-    title: 'Zeedburgerdijk/Borneostraat',
-    description: 'Op 5 maart 1651 werden Amsterdam en omgeving getroffen door een ongekend felle stormvloed. Spectaculair was een dubbele doorbraak van de dijk die we tegenwoordig de Zeeburgerdijk noemen. Het water had zo\'n kracht dat het een gat achterliet. Je ziet op dit punt dat de grond nog steeds lager ligt.',
-    image: 'https://onsamsterdam.nl/uploads/headerContent/_1400x787_crop_center-center_82_line/dijkdoorbraak.jpg',
-    color: '#3f51b5' // blue
-  },
-  {
     lat: 52.370059,
     lng: 4.891800,
     title: 'Het mirakel van Amsterdam (Enge Kapelsteeg 2)',
@@ -51,14 +75,6 @@ const mapPoints = [
     description: 'De Papegaai, officieel bekend als de Sint Petrus en Pauluskerk, is een verborgen juweeltje in Amsterdam. Oorspronkelijk was hier een schuilkerk: de katholieken komen bijeen in het woonhuis van de welgestelde familie Bout (een vogelhandelaar, vandaar De Papegaai). Als deze ruimte te klein wordt, wordt er in 1710 achter het huis een kerkje gebouwd.',
     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/De_Papegaai.JPG/399px-De_Papegaai.JPG',
     color: '#ff6f61' // coral red
-  },
-  {
-    lat: 52.347010,
-    lng: 4.848853,
-    title: 'Huis te Vraag (Rijnsburgstraat 51)',
-    description: 'Een piepklein, verborgen kerkhof midden in de stad, met een bijna sprookjesachtige sfeer. De naam komt van een voormalig kasteeltje dat op deze plek stond. Je mag er gewoon rondlopen en het voelt als een geheime tuin.',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Entree_Huis_te_Vraag.JPG/390px-Entree_Huis_te_Vraag.JPG',
-    color: '#3f51b5' // blue
   },
   {
     lat: 52.370676,
