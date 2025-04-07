@@ -43,8 +43,7 @@ const mapPoints = [
     description: 'In 1345 gebeurde er een wonder in Amsterdam. Een hostie bleef ongeschonden in het vuur na een zieke man het had uitgebraakt. Dit werd het Mirakel van Amsterdam en wordt elk jaar op 15 maart herdacht. Op de plek waar dit gebeurde is een kapel gebouwd, als je naar de overkant van de straat loopt op het Rokin dan kan je de koepel nog zien! Ook is op het Rokin een Romeinse zuil geplaatst die naar dit mirakel verwijst.',
     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Eucharistic_Miracle_of_Amsterdam_by_Jacob_Cornelisz_1518.png/390px-Eucharistic_Miracle_of_Amsterdam_by_Jacob_Cornelisz_1518.png',
     color: '#ff6f61' // coral red
-  }
-  ,
+  },
   {
     lat: 52.371164,
     lng: 4.891840,
@@ -52,6 +51,14 @@ const mapPoints = [
     description: 'De Papegaai, officieel bekend als de Sint Petrus en Pauluskerk, is een verborgen juweeltje in Amsterdam. Oorspronkelijk was hier een schuilkerk: de katholieken komen bijeen in het woonhuis van de welgestelde familie Bout (een vogelhandelaar, vandaar De Papegaai). Als deze ruimte te klein wordt, wordt er in 1710 achter het huis een kerkje gebouwd.',
     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/De_Papegaai.JPG/399px-De_Papegaai.JPG',
     color: '#ff6f61' // coral red
+  },
+  {
+    lat: 52.347010,
+    lng: 4.848853,
+    title: 'Huis te Vraag (Rijnsburgstraat 51)',
+    description: 'Een piepklein, verborgen kerkhof midden in de stad, met een bijna sprookjesachtige sfeer. De naam komt van een voormalig kasteeltje dat op deze plek stond. Je mag er gewoon rondlopen en het voelt als een geheime tuin.',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Entree_Huis_te_Vraag.JPG/390px-Entree_Huis_te_Vraag.JPG',
+    color: '#3f51b5' // blue
   }
 ];
 
