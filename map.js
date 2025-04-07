@@ -45,6 +45,14 @@ const mapPoints = [
     color: '#008000' // green
   },
   {
+    lat: 52.360790,
+    lng: 4.876985,
+    title: 'De Vondelbunker (Brug 200: de Vondelbrug)',
+    description: 'Verborgen onder de Vondelbrug in het Vondelpark ligt de Vondelbunker, een voormalige nucleaire schuilkelder uit de Koude Oorlog. Tegenwoordig is deze unieke locatie een bruisend cultureel centrum, gerund door een collectief van vrijwilligers. Bij de opening was er nog geen bestemming voor de grote betonnen ruimte in het noordelijke bruggenhoofd. Plannen om er een openbaar urinoir in onder te brengen gingen niet door. Uiteindelijk nam de Bescherming Bevolking (BB) de ruimte in gebruik als schuilplaats.',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Vondelbrug.JPG/399px-Vondelbrug.JPG',
+    color: '#008000' // green
+  },
+  {
     lat: 52.369124,
     lng: 4.889797,
     title: 'Begijnhof 34',
