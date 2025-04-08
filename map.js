@@ -139,6 +139,22 @@ const mapPoints = [
     description: 'In het Rasphuis – de eerste moderne Amsterdamse gevangenis – moesten dwangarbeiders Braziliaans hout tot poeder raspen en werden zij zwaar gestraft, soms zelfs onder water gezet. Later werd hier, ironisch genoeg, het eerste overdekte zwembad van Amsterdam gebouwd. In het reliëf op de poort zie je een wagen met Braziliaans hout en de Latijnse inscriptie die vrij vertaald luidt: ‘Wilde beesten moet men temmen’.',
     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Rasphuis0.jpg/300px-Rasphuis0.jpg',
     color: '#ff6f61' // coral red
+  },
+  {
+    lat: 52.365207122159916,
+    lng: 4.900645904339913,
+    title: 'Het huis met de bloedvlekken (Amstel 216)',
+    description: 'Aan de Amstel op nummer 216 staat een prachtig stadspaleis met een duister verleden: het Huis met de Bloedvlekken. Zo genoemd omdat op de buitenmuren van het huis de eeuwenoude graffiti te zien is die oud-burgemeester Coenraad van Beuningen daar met zijn eigen bloed op de muren kalkte. De raadselachtige tekens zijn er om onverklaarbare redenen niet af te boenen en na honderden jaren nog duidelijk zichtbaar.',
+    image: 'https://www.amsterdam.nl/publish/pages/827616/amstel216_bloedvlekken.jpg',
+    color: '#ff6f61' // coral red
+  },
+  {
+    lat: 52.381550216336564,
+    lng: 4.889424927607641,
+    title: 'De Huddesteen in de Eenhoornsluis',
+    description: 'Wandel je langs de Eenhoornsluis, dan kijk je zo naar een stukje verborgen geschiedenis: de Huddesteen. Deze eenvoudige steen met een groef lijkt misschien onopvallend, maar sinds 1684 gaf hij de hoogte van de zeedijken aan ten opzichte van het 'Amsterdams Peil' — een waterpeil waar heel Nederland zich op baseert. Genoemd naar burgemeester Johannes Hudde, was dit een van de acht stenen die verspreid over de stad het water nauwlettend in de gaten hielden. Eeuwenlang dacht men dat deze bij de Eenhoornsluis de enige overlevende was, tot er in 2013 plotseling een tweede opdook tijdens de sloop van De Nieuwe Brug bij het Damrak.',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Huddesteen_eenhoornsluis.jpg/500px-Huddesteen_eenhoornsluis.jpg',
+    color: '#ff6f61' // coral red
   }
 ];
 
