@@ -152,7 +152,7 @@ const mapPoints = [
     lat: 52.381550216336564,
     lng: 4.889424927607641,
     title: 'De Huddesteen in de Eenhoornsluis',
-    description: 'Wandel je langs de Eenhoornsluis, dan kijk je zo naar een stukje verborgen geschiedenis: de Huddesteen. Deze eenvoudige steen met een groef lijkt misschien onopvallend, maar sinds 1684 gaf hij de hoogte van de zeedijken aan ten opzichte van het 'Amsterdams Peil' — een waterpeil waar heel Nederland zich op baseert. Genoemd naar burgemeester Johannes Hudde, was dit een van de acht stenen die verspreid over de stad het water nauwlettend in de gaten hielden. Eeuwenlang dacht men dat deze bij de Eenhoornsluis de enige overlevende was, tot er in 2013 plotseling een tweede opdook tijdens de sloop van De Nieuwe Brug bij het Damrak.',
+    description: 'Wandel je langs de Eenhoornsluis, dan kijk je zo naar een stukje verborgen geschiedenis: de Huddesteen. Deze eenvoudige steen met een groef lijkt misschien onopvallend, maar sinds 1684 gaf hij de hoogte van de zeedijken aan ten opzichte van het "Amsterdams Peil" — een waterpeil waar heel Nederland zich op baseert. Genoemd naar burgemeester Johannes Hudde, was dit een van de acht stenen die verspreid over de stad het water nauwlettend in de gaten hielden. Eeuwenlang dacht men dat deze bij de Eenhoornsluis de enige overlevende was, tot er in 2013 plotseling een tweede opdook tijdens de sloop van De Nieuwe Brug bij het Damrak.',
     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Huddesteen_eenhoornsluis.jpg/500px-Huddesteen_eenhoornsluis.jpg',
     color: '#ff6f61' // coral red
   }
