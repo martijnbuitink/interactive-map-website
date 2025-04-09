@@ -61,6 +61,14 @@ const mapPoints = [
     color: '#3f51b5' // blue
   },
   {
+    lat: 52.37327079472092,
+    lng: 4.891887233161381,
+    title: 'Publieke executies op De Dam',
+    description: 'Het Paleis op de Dam is nu vooral een prachtig gebouw met een ceremoniële functie. Denk aan Koninklijke bezoeken en bijvoorbeeld de Dodenherdenking. Maar ooit was het een plaats waar recht werd gesproken en waar de meest gruwelijke straffen werden voltrokken. In de 17e eeuw was het Paleis namelijk het stadhuis van Amsterdam, waarin terdoodveroordeelden hun laatste minuten doorbrachten,. Ze zaten geknield op de koude marmeren vloer, omringd door de hoogste bestuurders van de stad die gezamenlijk met hen baden, wachtend op het schavot. Op de dag van de terechtstelling werd een houten stellage tegen het paleis opgebouwd waarop de straf werd voltrokken. In de paleismuren zaten gaten waar de draagbalken voor het schavot in werden geschoven. Deze gaten zijn inmiddels dichtgemetseld maar wel nog steeds zichtbaar.',
+    image: 'https://www.amsterdam.nl/publish/pages/979434/700px/schavotgaten_klein.jpg',
+    color: '#3f51b5' // blue
+  },
+  {
     lat: 52.366505,
     lng: 4.904601,
     title: 'De M.S. Vaz Diasbrug (brug 238)',
