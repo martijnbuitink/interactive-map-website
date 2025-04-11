@@ -69,6 +69,14 @@ const mapPoints = [
     color: '#3f51b5' // blue
   },
   {
+    lat: 52.37325012329611,
+    lng: 4.892266261303745,
+    title: 'Normaal Amsterdamse Pijl',
+    description: 'Nederland ligt voor een groot deel onder zeeniveau, dus het meten van waterstanden is hier al eeuwenlang belangrijk. In 1675 leidde een grote overstroming in Amsterdam tot nieuwe dijken en sluizen. Burgemeester Johannes Hudde liet in 1683 in acht sluizen peilstenen plaatsen met een markering: de hoogte van de zeedijk boven het Amsterdams Peil (AP). Dat peil werd later de landelijke standaard.In 1818 werd het AP officieel de referentie voor heel Nederland. Vanaf 1875 werd het verder verfijnd en kreeg het de naam NAP: Normaal Amsterdams Peil. In 1953 werd op de Dam een speciaal referentiepunt aangebracht: een bronzen bout op een 22 meter diepe heipaal. Dit markeert het officiële nulpunt voor hoogtemetingen in ons land.',
+    image: 'https://img.atlasobscura.com/4MhdqfsNiDbU-cKHcDhzYQgkNA1QSvKCg8QC_xN1ba4/rt:fit/w:1200/q:80/sm:1/scp:1/ar:1/aHR0cHM6Ly9hdGxh/cy1kZXYuczMuYW1h/em9uYXdzLmNvbS91/cGxvYWRzL3BsYWNl/X2ltYWdlcy84N2I5/OWIzOTcwZjQ3MDRh/MGRfUF8yMDE5MTIy/NF8xNDE3MzMuanBn.webp',
+    color: '#3f51b5' // blue
+  },
+  {
     lat: 52.366505,
     lng: 4.904601,
     title: 'De M.S. Vaz Diasbrug (brug 238)',
