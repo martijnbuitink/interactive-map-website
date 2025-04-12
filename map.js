@@ -171,6 +171,14 @@ const mapPoints = [
     description: 'Wandel je langs de Eenhoornsluis, dan kijk je zo naar een stukje verborgen geschiedenis: de Huddesteen. Deze eenvoudige steen met een groef lijkt misschien onopvallend, maar sinds 1684 gaf hij de hoogte van de zeedijken aan ten opzichte van het "Amsterdams Peil" — een waterpeil waar heel Nederland zich op baseert. Genoemd naar burgemeester Johannes Hudde, was dit een van de acht stenen die verspreid over de stad het water nauwlettend in de gaten hielden. Eeuwenlang dacht men dat deze bij de Eenhoornsluis de enige overlevende was, tot er in 2013 plotseling een tweede opdook tijdens de sloop van De Nieuwe Brug bij het Damrak.',
     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Huddesteen_eenhoornsluis.jpg/500px-Huddesteen_eenhoornsluis.jpg',
     color: '#ff6f61' // coral red
+  },
+  {
+    lat: 52.,
+    lng: 4.,
+    title: 'Geheime zender in De Wolkenkrabber (Victorieplein 45)',
+    description: 'In september 1944 werd vanuit een appartement in het 12-verdiepingenhuis, beter bekend onder de bijnaam De Wolkenkrabber, radiocontact gelegd met een Brits verkenningsvliegtuig. Verzetsman Dijckmeester zond daar twee weken lang belangrijke berichten naar Londen. Terwijl verzetsman Sonderman met een uitkijkploeg de wacht hield op straat, werkte een radiotelegrafist vanuit de flat aan het Daniël Willinkplein. Toen de Duitsers de zender bijna opspoorden, wist het team op tijd te ontsnappen en verplaatste de zendpost zich via Amsterdam naar Aalsmeer, Purmerend en Monnickendam.',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/12-verdiepingenhuis_2019_%281%29.jpg/399px-12-verdiepingenhuis_2019_%281%29.jpg',
+    color: '#ff6600' // orange red
   }
 ];
 
