@@ -173,8 +173,8 @@ const mapPoints = [
     color: '#ff6f61' // coral red
   },
   {
-    lat: 52.,
-    lng: 4.,
+    lat: 52.34590803685165,
+    lng: 4.902679890794791,
     title: 'Geheime zender in De Wolkenkrabber (Victorieplein 45)',
     description: 'In september 1944 werd vanuit een appartement in het 12-verdiepingenhuis, beter bekend onder de bijnaam De Wolkenkrabber, radiocontact gelegd met een Brits verkenningsvliegtuig. Verzetsman Dijckmeester zond daar twee weken lang belangrijke berichten naar Londen. Terwijl verzetsman Sonderman met een uitkijkploeg de wacht hield op straat, werkte een radiotelegrafist vanuit de flat aan het Daniël Willinkplein. Toen de Duitsers de zender bijna opspoorden, wist het team op tijd te ontsnappen en verplaatste de zendpost zich via Amsterdam naar Aalsmeer, Purmerend en Monnickendam.',
     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/12-verdiepingenhuis_2019_%281%29.jpg/399px-12-verdiepingenhuis_2019_%281%29.jpg',
