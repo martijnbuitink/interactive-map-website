@@ -93,6 +93,14 @@ const mapPoints = [
     color: '#008000' // green
   },
   {
+    lat: 52.360756,
+    lng: 4.908192,
+    title: 'Olifant door brug gezakt (Brug 263: Weesperpoortbrug)',
+    description: 'Een olifant? Ja echt! In de zeventiende eeuw reisde Hansken, een getrainde olifant uit Ceylon (nu Sri Lanka), door Europa als een ware publiekslieveling. Ze trad op in shows waarin ze kon buigen, salueren en zelfs schieten met een pistool. In 1647 bezocht ze Amsterdam. Tijdens een wandeling door de stad zakte Hansken plotseling door een houten brug. De zware olifant werd gelukkig gered en raakte niet ernstig gewond. Het incident maakte indruk en bleef jarenlang onderdeel van Amsterdamse verhalen. Hansken bezocht de stad uiteindelijk vier keer — en zelfs Rembrandt tekende haar. Zo werd een olifant een kleine legende in de geschiedenis van Amsterdam. De brug waar het om gaat zat op deze plek! Natuurlijk zou daar nu wel een olifant overheen kunnen.',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Hansken.rembrandt.jpg/390px-Hansken.rembrandt.jpg',
+    color: '#008000' // green
+  },
+  {
     lat: 52.369124,
     lng: 4.889797,
     title: 'Begijnhof 34',
