@@ -181,6 +181,14 @@ const mapPoints = [
     color: '#ff6f61' // coral red
   },
   {
+    lat: 52.36828099488704,
+    lng: 4.9372528791088275,
+    title: 'Veemarkt',
+    description: 'Dit stukje van Amsterdam heeft een bloederige geschiedenis, voor dieren dan... Tegen het einde van de 19de eeuw is de oude haven van Amsterdam te klein geworden voor de steeds groter wordende schepen; bovendien maken de sporen die naar het Centraal Station (1889) gaan, de havens moeilijk bereikbaar. Het Oostelijk havengebied is de vervanging van de haven met veel kunstmatige eilandjes. Op Cruquiuseiland komen in 1887 de veemarkt en het abattoir. Om het veemarktterrein komen stallen voor koeien en kalveren, paarden, schapen en varkens. Later komt het gemeentelijk douane-entrepot vlak naast de veemarkt. Langs de Cruquiusweg komen in de 19de eeuw ook zeven entrepotpakhuizen met de namen van de weekdagen. Je kan nu nog de poort zien de woningen van de marktmeester en de waagmeester en het kantine gebouw!',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Veemarkt_Amsterdam_hek.JPG/375px-Veemarkt_Amsterdam_hek.JPG',
+    color: '#ff6f61' // coral red
+  },
+  {
     lat: 52.34590803685165,
     lng: 4.902679890794791,
     title: 'Geheime zender in De Wolkenkrabber (Victorieplein 45)',
