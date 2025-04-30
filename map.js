@@ -77,6 +77,14 @@ const mapPoints = [
     color: '#3f51b5' // blue
   },
   {
+    lat: 52.36873421017427,
+    lng: 4.958250039783842,
+    title: 'Wachterswoning (Zuider Ijdijk 24)',
+    description: 'Vroeger was dit de enige toegang vanaf het land naar Zeeburg. Via de Merwedesluis kwam je niet veel verder dan dit punt, een prikkeldraad omheining versperde de weg. Zeeburg was vroeger namelijk een militair terrein met overdekte schietbanen en een marine vliegkamp. Van het militair terrein is alleen deze wachterswoning nog te zien.',
+    image: 'https://static.contentecontent.com/platen_medium/11/11486.webp',
+    color: '#3f51b5' // blue
+  },
+  {
     lat: 52.366505,
     lng: 4.904601,
     title: 'De M.S. Vaz Diasbrug (brug 238)',
