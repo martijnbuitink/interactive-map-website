@@ -96,7 +96,7 @@ const mapPoints = [
     lat: 52.349330195357275,
     lng: 4.855909773864254,
     title: 'Duiventil',
-    description: 'Om het verkeer (en de verkeerslichten) op het Stationsplein in goede banen te leiden werd voor de Amsterdamse Politie een verkeershuisje op hoogte gebouwd. In de volksmond raakte dit bouwwerk, ontworpen door Piet Kramer, bekend als de Duiventil. Toen de verkeerslichten op een goed moment centraal geregeld konden worden raakte het gebouwtje zijn functie kwijt en werd hij verwijderd. In 1980 moest het huisje verdwijnen in verband met de sloop van het oude ronde VVV-gebouwtje op het plein, de aanleg van een toegang tot de metro en de herbouw van het Noord-Zuid Hollandsch Koffiehuis.',
+    description: 'Om het verkeer (en de verkeerslichten) op het Stationsplein in goede banen te leiden werd voor de Amsterdamse Politie een verkeershuisje op hoogte gebouwd. In de volksmond raakte dit bouwwerk bekend als de Duiventil. In 1980 moest het huisje verdwijnen in verband met de sloop van het oude ronde VVV-gebouwtje op het plein, de aanleg van een toegang tot de metro en de herbouw van het Noord-Zuid Hollandsch Koffiehuis.',
     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Duiventil%2C_Havenstraat%2C_achterzijde.jpg/500px-Duiventil%2C_Havenstraat%2C_achterzijde.jpg',
     color: '#3f51b5' // blue
   },
