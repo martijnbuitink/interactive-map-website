@@ -213,6 +213,22 @@ const mapPoints = [
     color: '#ff6f61' // coral red
   },
   {
+    lat: 52.378628337197824,
+    lng: 4.894072157202096,
+    title: 'Middeleeuwse stadsmuur',
+    description: 'Vanwege kadewerkzaamheden werd het grachtenwater uit het Singel weggepompt, zodat een deel van de bakstenen kon worden verwijderd. Achter deze stenen bleek een deel van de Amsterdamse stadsmuur te zitten, bestaande uit 27 Middeleeuwse natuurstenen. De stadsmuur was gebouwd met stenen van dertig bij zeventig centimeter, in opdracht van landsheer Maximiliaan van Oostenrijk  en beschermde de stad tussen 1480 en 1603. De muur werd verstevigd met grote steunberen, die dienden als een soort fundering van de halfronde bogen. Die bogen waren rond de vijf meter hoog, waar vervolgens een looppad overheen liep. Vanaf dit pad verdedigden soldaten de stadsmuur. Eindelijk restanten gevonden van de oude middeleeuwse stadsmuur! Zie je de grote stenen zitten in de kade? Aan de overkant van het Singel heb je beter zicht!',
+    image: 'https://www.amsterdamhv.nl/pictures/khan/j304-khan.webp',
+    color: '#ff6f61' // coral red
+  },
+  {
+    lat: 52.37429847644022,
+    lng: 4.901228303839898,
+    title: 'Middeleeuwse stadsmuur',
+    description: 'In 1481 wordt begonnen met de bouw van de stadsmuur. Alle Amsterdammers moeten letterlijk hun steentje bijdragen; de herkomst van dit gezegde komt hier vandaan. Men moet meehelpen heien of graven, een geldbedrag schenken of een groot aantal bakstenen leveren. De muur is zes meter hoog en heeft verschillende verdedigingstorens. In 1601 wordt de oude mid­del­eeuw­se stads­muur af­ge­bro­ken en ver­van­gen door een nieu­we. Stuk­ken van de oude muur wor­den on­der meer ge­bruikt voor de bouw van de Zui­der­kerk. Een an­der deel van de ste­nen komt te­recht in hui­zen die rond 1600 ge­bouwd wor­den in de om­ge­ving van de Nieuw­markt en het Wa­ter­loop­lein. In de Ban­tam­mer­brug bij de Gel­der­se­ka­de zijn dui­de­lijk zicht­ba­re ste­nen van de oude stads­muur ver­werkt. Op de ­fo­to pre­cies in het mid­den de gro­te zes na­tuur­ste­nen in de knik.',
+    image: 'https://i0.wp.com/overamsterdam.nl/wp-content/uploads/2019/07/geldersekade2019_klein.jpg?resize=280%2C280&ssl=1',
+    color: '#ff6f61' // coral red
+  },
+  {
     lat: 52.34590803685165,
     lng: 4.902679890794791,
     title: 'Geheime zender in De Wolkenkrabber (Victorieplein 45)',
