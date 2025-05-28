@@ -101,6 +101,14 @@ const mapPoints = [
     color: '#3f51b5' // blue
   },
   {
+    lat: 52.35797369298966,
+    lng: 4.906424226507017,
+    title: 'Olifant door brug gezakt',
+    description: 'Een olifant? Ja echt! In de zeventiende eeuw reisde Hansken, een getrainde olifant uit Ceylon (nu Sri Lanka), door Europa als een ware publiekslieveling. Ze trad op in shows waarin ze kon buigen, salueren en zelfs schieten met een pistool. In 1647 bezocht ze Amsterdam. Tijdens een wandeling door de stad zakte Hansken plotseling door een houten brug. De zware olifant werd gelukkig gered en raakte niet ernstig gewond. Het incident maakte indruk en bleef jarenlang onderdeel van Amsterdamse verhalen. Hansken bezocht de stad uiteindelijk vier keer en zelfs Rembrandt tekende haar! Zo werd een olifant een kleine legende in de geschiedenis van Amsterdam. De brug waar het om gaat zat op deze plek! Vroeger liep hier het olifantspad langs de Molenwatering. Natuurlijk zou daar nu wel een olifant overheen kunnen.',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Hansken.rembrandt.jpg/390px-Hansken.rembrandt.jpg',
+    color: '#3f51b5' // blue
+  },
+  {
     lat: 52.366505,
     lng: 4.904601,
     title: 'De M.S. Vaz Diasbrug (brug 238)',
@@ -114,14 +122,6 @@ const mapPoints = [
     title: 'De Vondelbunker (Brug 200: de Vondelbrug)',
     description: 'Verborgen onder de Vondelbrug in het Vondelpark ligt de Vondelbunker, een voormalige nucleaire schuilkelder uit de Koude Oorlog. Tegenwoordig is deze unieke locatie een bruisend cultureel centrum, gerund door een collectief van vrijwilligers. Bij de opening was er nog geen bestemming voor de grote betonnen ruimte in het noordelijke bruggenhoofd. Plannen om er een openbaar urinoir in onder te brengen gingen niet door. Uiteindelijk nam de Bescherming Bevolking (BB) de ruimte in gebruik als schuilplaats.',
     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Vondelbrug.JPG/399px-Vondelbrug.JPG',
-    color: '#008000' // green
-  },
-  {
-    lat: 52.360756,
-    lng: 4.908192,
-    title: 'Olifant door brug gezakt (Brug 263: Weesperpoortbrug)',
-    description: 'Een olifant? Ja echt! In de zeventiende eeuw reisde Hansken, een getrainde olifant uit Ceylon (nu Sri Lanka), door Europa als een ware publiekslieveling. Ze trad op in shows waarin ze kon buigen, salueren en zelfs schieten met een pistool. In 1647 bezocht ze Amsterdam. Tijdens een wandeling door de stad zakte Hansken plotseling door een houten brug. De zware olifant werd gelukkig gered en raakte niet ernstig gewond. Het incident maakte indruk en bleef jarenlang onderdeel van Amsterdamse verhalen. Hansken bezocht de stad uiteindelijk vier keer — en zelfs Rembrandt tekende haar. Zo werd een olifant een kleine legende in de geschiedenis van Amsterdam. De brug waar het om gaat zat op deze plek! Natuurlijk zou daar nu wel een olifant overheen kunnen.',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Hansken.rembrandt.jpg/390px-Hansken.rembrandt.jpg',
     color: '#008000' // green
   },
   {
