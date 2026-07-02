@@ -31,29 +31,20 @@
 
         <fieldset class="control-card">
           <legend>Route Voorstel</legend>
+          <label for="route-theme">Thema</label>
+          <select id="route-theme">
+            <option value="history">Historische gebouwen</option>
+            <option value="ww2">Tweede Wereldoorlog</option>
+            <option value="bridges">Bruggen</option>
+            <option value="nature">Natuur</option>
+            <option value="all">Mix van alles</option>
+          </select>
 
-          <p class="group-label">Startpunt</p>
-          <label><input type="radio" name="route-start-mode" value="nearest" checked /> Nearest-neighbor vanaf kaartmiddelpunt</label>
-          <label><input type="radio" name="route-start-mode" value="map-click" /> Kies startpunt op de kaart</label>
-          <label><input type="radio" name="route-start-mode" value="my-location" /> Gebruik mijn locatie</label>
-          <button id="pick-start" type="button" class="btn-muted">Selecteer startpunt op kaart</button>
-
-          <p class="group-label">Rondje afstand</p>
-          <div class="segmented" role="group" aria-label="Routeafstand">
-            <label><input type="radio" name="route-distance" value="2" /> 2 km</label>
-            <label><input type="radio" name="route-distance" value="3" /> 3 km</label>
-            <label><input type="radio" name="route-distance" value="5" checked /> 5 km</label>
-          </div>
-
-          <p class="group-label">Route categorieen</p>
-          <label><input type="checkbox" class="route-category-toggle" value="history-visible" checked /> Historie zichtbaar</label>
-          <label><input type="checkbox" class="route-category-toggle" value="history-lost" checked /> Historie niet meer zichtbaar / bijzonder</label>
-          <label><input type="checkbox" class="route-category-toggle" value="ww2" checked /> Tweede Wereldoorlog</label>
-          <label><input type="checkbox" class="route-category-toggle" value="bridges" checked /> Bruggen</label>
-          <label><input type="checkbox" class="route-category-toggle" value="nature" checked /> Natuur</label>
+          <label for="route-distance">Afstand: <span id="route-distance-value">5</span> km</label>
+          <input type="range" id="route-distance" min="2" max="12" step="1" value="5" />
 
           <div class="button-row">
-            <button id="build-route" type="button">Genereer rondje</button>
+            <button id="build-route" type="button">Genereer route</button>
             <button id="clear-route" type="button" class="btn-muted">Wis route</button>
           </div>
         </fieldset>

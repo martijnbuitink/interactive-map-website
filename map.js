@@ -1,274 +1,380 @@
-const map = L.map('map', {
-  scrollWheelZoom: false, // Disable zooming with mouse wheel on mobile
-  dragging: true, // Enable dragging for touch devices
-  touchZoom: true,  // Enable pinch zoom for touch devices
-  tap: true  // Enable tapping for markers and interactions
-}).setView([52.37, 4.89], 13); // Amsterdam coordinates
+import { mapPoints } from './data/cities/amsterdam/index.js';
 
-// Custom tile background (optional, simplified design)
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+const AMSTERDAM_CENTER = [52.37, 4.89];
+const DEFAULT_ZOOM = 13;
+const MAP_STATE_KEY = 'map-state-v1';
+
+const categoryMeta = {
+  'history-visible': { color: '#e63946', label: 'Historie zichtbaar' },
+  'history-lost': { color: '#2f6fed', label: 'Historie niet meer zichtbaar / bijzonder' },
+  ww2: { color: '#f4b400', label: 'Tweede Wereldoorlog' },
+  bridges: { color: '#2a9d8f', label: 'Bruggen' },
+  nature: { color: '#5b9a2f', label: 'Natuur' }
+};
+
+const controls = {
+  status: document.getElementById('status'),
+  locateButton: document.getElementById('locate-me'),
+  resetButton: document.getElementById('reset-view'),
+  pickStartButton: document.getElementById('pick-start'),
+  routeButton: document.getElementById('build-route'),
+  clearRouteButton: document.getElementById('clear-route'),
+  categoryToggles: Array.from(document.querySelectorAll('.category-toggle')),
+  routeCategoryToggles: Array.from(document.querySelectorAll('.route-category-toggle')),
+  routeDistanceRadios: Array.from(document.querySelectorAll('input[name="route-distance"]')),
+  routeStartRadios: Array.from(document.querySelectorAll('input[name="route-start-mode"]'))
+};
+
+function readSavedMapState() {
+  try {
+    const raw = localStorage.getItem(MAP_STATE_KEY);
+    if (!raw) {
+      return { center: AMSTERDAM_CENTER, zoom: DEFAULT_ZOOM };
+    }
+
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed.center) || typeof parsed.zoom !== 'number') {
+      return { center: AMSTERDAM_CENTER, zoom: DEFAULT_ZOOM };
+    }
+
+    return parsed;
+  } catch (error) {
+    return { center: AMSTERDAM_CENTER, zoom: DEFAULT_ZOOM };
+  }
+}
+
+const savedState = readSavedMapState();
+
+const map = L.map('map', {
+  scrollWheelZoom: true,
+  dragging: true,
+  touchZoom: true,
+  tap: true
+}).setView(savedState.center, savedState.zoom);
+
+L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Humanitarian style'
 }).addTo(map);
 
-// Abstract map points with custom markers and color
-const mapPoints = [
-  {
-    lat: 52.347010,
-    lng: 4.848853,
-    title: 'Huis te Vraag (Rijnsburgstraat 51)',
-    description: 'Een piepklein, verborgen kerkhof midden in de stad, met een bijna sprookjesachtige sfeer. De naam komt van een voormalig kasteeltje dat op deze plek stond. Je mag er gewoon rondlopen en het voelt als een geheime tuin.',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Entree_Huis_te_Vraag.JPG/390px-Entree_Huis_te_Vraag.JPG',
-    color: '#3f51b5' // blue
-  },
-  {
-    lat: 52.366103,
-    lng: 4.931851,
-    title: 'Zeedburgerdijk/Borneostraat',
-    description: 'Op 5 maart 1651 werden Amsterdam en omgeving getroffen door een ongekend felle stormvloed. Spectaculair was een dubbele doorbraak van de dijk die we tegenwoordig de Zeeburgerdijk noemen. Het water had zo\'n kracht dat het een gat achterliet. Je ziet op dit punt dat de grond nog steeds lager ligt.',
-    image: 'https://onsamsterdam.nl/uploads/headerContent/_1400x787_crop_center-center_82_line/dijkdoorbraak.jpg',
-    color: '#3f51b5' // blue
-  },
-  {
-    lat: 52.368126,
-    lng: 4.904566,
-    title: 'Mr. Visserplein',
-    description: 'De Amsterdamse binnenstad wordt steeds meer autoluw. Hoe anders was het eind jaren 60 toen de gemeente juist ruim baan voor het opkomende vervoersmiddel maakte. Diverse stedenbouwkundigen hebben hun hoofd gebogen over plannen om een soort stadssnelweg dwars door de Nieuwmarktbuurt richting het Centraal Stadion aan te leggen. Bestaande huizen werden al gesloopt voor deze nieuwe weg. Uiteindelijk kwam deze verkeersader er door veel en harde protesten van Amsterdammers er niet, maar een verkeersplein met tunnels werd wel aangelegd: het Mr. Visserplein.',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Mr_visserplein_stopera_mozes_en_aaronkerk.jpg/500px-Mr_visserplein_stopera_mozes_en_aaronkerk.jpg',
-    color: '#3f51b5' // blue
-  },
-  {
-    lat: 52.36030775459272,
-    lng: 4.888105913270245,
-    title: 'Commiezenhuisje',
-    description: 'Tot 1840 stond hier de Weteringpoort, een stadspoort uit 1668. Poort is een groot woord: feitelijk was het een onderdoorgang door de stadswal. Buiten de poort lag een lange houten brug over de Singelgracht. De poort werd afgebroken omdat de stad het onderhoud te duur vond. Ze werd vooral gebruikt voor de heffing van accijns op allerlei ingevoerde goederen. Hier kwamen veel groenten langs die via de Boerenwetering werden aangevoerd. Tegenwoordig zit hier het rioolgemaal in dat rioolwater helemaal naar west pompt!',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Commiezenhuis_Weteringschans.JPG/1200px-Commiezenhuis_Weteringschans.JPG',
-    color: '#3f51b5' // blue
-  },
-  {
-    lat: 52.374555399238716,
-    lng: 4.889638584261016,
-    title: 'Jan Roodenpoortstoren',
-    description: 'De Jan Roodenpoort was vanaf omstreeks 1480 een kleine doorgang in de vestingmuur van 1425, gelegen bij de Torensteeg. Opvallend is de fundering van de toren. Hier staan de palen zo dicht bij elkaar dat het een nagenoeg massieve houten fundering is geworden. Eigenlijk staat de fundering de bouw van een nieuwe brug in de weg. Er wordt besloten de brug met een vierde boog uit te breiden, waarbij aan beide zijden van de toren kelders ontstaan. In de noordelijke kelder was een uitbreiding van de keuken, de zuidelijke kelder bevatte de uitbreiding van de gevangenis. De toren is inmiddels afgebroken, maar wie zich nu onder de gewelven van de brug waagt, kan zich, mede door de nog steeds aanwezige tralies, met wat verbeeldingskracht het ellendige gevang voorstellen. Na 2001 in de keitjesbestrating van de Torensluis de contouren van de toren met een andere kleur keitjes zichtbaar gemaakt.',
-    image: 'https://www.amsterdamsebinnenstad.nl/binnenstad/199/torensluis.jpg',
-    color: '#3f51b5' // blue
-  },
-  {
-    lat: 52.37303253574737,
-    lng: 4.896940492292269,
-    title: 'De sloppen en gangen van Amsterdam',
-    description: 'Huisnummer 162 springt ineens door naar nr. 194! Waar zijn nummer 164, 166, 168, 170.. et cetera dan gebleven?! Amsterdam zit vol kleine straatjes en nauwe steegjes. Die kennen we allemaal en maken onze binnenstad ook zo knus. Maar het kan nog veel krapper. Naast de stegen kent Mokum namelijk ook talloze nog smallere doorgangetjes tussen de huizen. En die noemen we ‘sloppen en gangen’. Bijna altijd doodlopend en soms met binnentuin erachter. In die doodlopende gangetjes liepen de woningen gewoon door en de huisnummers dus ook.',
-    image: 'https://amsterdam-walks.nl/wp-content/uploads/2022/06/Schoenmakersgang-Bernard-Eilers-1930-De-Van-der-Lindes-voor-hun-woning-Dienst-Volkshuisvesting-1933-980x420.jpg',
-    color: '#3f51b5' // blue
-  },
-  {
-    lat: 52.37327079472092,
-    lng: 4.891887233161381,
-    title: 'Publieke executies op De Dam',
-    description: 'Het Paleis op de Dam is nu vooral een prachtig gebouw met een ceremoniële functie. Denk aan Koninklijke bezoeken en bijvoorbeeld de Dodenherdenking. Maar ooit was het een plaats waar recht werd gesproken en waar de meest gruwelijke straffen werden voltrokken. In de 17e eeuw was het Paleis namelijk het stadhuis van Amsterdam, waarin terdoodveroordeelden hun laatste minuten doorbrachten,. Ze zaten geknield op de koude marmeren vloer, omringd door de hoogste bestuurders van de stad die gezamenlijk met hen baden, wachtend op het schavot. Op de dag van de terechtstelling werd een houten stellage tegen het paleis opgebouwd waarop de straf werd voltrokken. In de paleismuren zaten gaten waar de draagbalken voor het schavot in werden geschoven. Deze gaten zijn inmiddels dichtgemetseld maar wel nog steeds zichtbaar.',
-    image: 'https://www.amsterdam.nl/publish/pages/979434/700px/schavotgaten_klein.jpg',
-    color: '#3f51b5' // blue
-  },
-  {
-    lat: 52.37325012329611,
-    lng: 4.892266261303745,
-    title: 'Normaal Amsterdamse Pijl',
-    description: 'Nederland ligt voor een groot deel onder zeeniveau, dus het meten van waterstanden is hier al eeuwenlang belangrijk. In 1675 leidde een grote overstroming in Amsterdam tot nieuwe dijken en sluizen. Burgemeester Johannes Hudde liet in 1683 in acht sluizen peilstenen plaatsen met een markering: de hoogte van de zeedijk boven het Amsterdams Peil (AP). Dat peil werd later de landelijke standaard.In 1818 werd het AP officieel de referentie voor heel Nederland. Vanaf 1875 werd het verder verfijnd en kreeg het de naam NAP: Normaal Amsterdams Peil. In 1953 werd op de Dam een speciaal referentiepunt aangebracht: een bronzen bout op een 22 meter diepe heipaal. Dit markeert het officiële nulpunt voor hoogtemetingen in ons land.',
-    image: 'https://img.atlasobscura.com/4MhdqfsNiDbU-cKHcDhzYQgkNA1QSvKCg8QC_xN1ba4/rt:fit/w:1200/q:80/sm:1/scp:1/ar:1/aHR0cHM6Ly9hdGxh/cy1kZXYuczMuYW1h/em9uYXdzLmNvbS91/cGxvYWRzL3BsYWNl/X2ltYWdlcy84N2I5/OWIzOTcwZjQ3MDRh/MGRfUF8yMDE5MTIy/NF8xNDE3MzMuanBn.webp',
-    color: '#3f51b5' // blue
-  },
-  {
-    lat: 52.36873421017427,
-    lng: 4.958250039783842,
-    title: 'Wachterswoning (Zuider IJdijk 24)',
-    description: 'Vroeger was dit de enige toegang vanaf het land naar Zeeburg. Via de Merwedesluis kwam je niet veel verder dan dit punt, een prikkeldraad omheining versperde de weg. Zeeburg was vroeger namelijk een militair terrein met overdekte schietbanen en een marine vliegkamp. Van het militair terrein is alleen deze wachterswoning nog te zien.',
-    image: 'https://static.contentecontent.com/platen_medium/11/11486.webp',
-    color: '#3f51b5' // blue
-  },
-  {
-    lat: 52.327820175566295,
-    lng: 4.856670922206383,
-    title: 'Duiventil',
-    description: 'Om het verkeer (en de verkeerslichten) op het Muntplein in goede banen te leiden werd voor de Amsterdamse Politie een verkeershuisje op hoogte gebouwd. In de volksmond raakte dit bouwwerk, ontworpen door Piet Kramer, bekend als de Duiventil. Toen de verkeerslichten op een goed moment centraal geregeld konden worden raakte het gebouwtje zijn functie kwijt en werd hij verwijderd. Sinds 1992 is het huisje herplaatst nabij de ingang van het Amsterdamse Bos aan de Van Nijenrodeweg.',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Duiventil%2C_Amsterdamse_Bos4.jpg/500px-Duiventil%2C_Amsterdamse_Bos4.jpg',
-    color: '#3f51b5' // blue
-  },
-  {
-    lat: 52.349330195357275,
-    lng: 4.855909773864254,
-    title: 'Duiventil',
-    description: 'Om het verkeer (en de verkeerslichten) op het Stationsplein in goede banen te leiden werd voor de Amsterdamse Politie een verkeershuisje op hoogte gebouwd. In de volksmond raakte dit bouwwerk bekend als de Duiventil. In 1980 moest het huisje verdwijnen in verband met de sloop van het oude ronde VVV-gebouwtje op het plein, de aanleg van een toegang tot de metro en de herbouw van het Noord-Zuid Hollandsch Koffiehuis.',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Duiventil%2C_Havenstraat%2C_achterzijde.jpg/500px-Duiventil%2C_Havenstraat%2C_achterzijde.jpg',
-    color: '#3f51b5' // blue
-  },
-  {
-    lat: 52.35797369298966,
-    lng: 4.906424226507017,
-    title: 'Olifant door brug gezakt',
-    description: 'Een olifant? Ja echt! In de zeventiende eeuw reisde Hansken, een getrainde olifant uit Ceylon (nu Sri Lanka), door Europa als een ware publiekslieveling. Ze trad op in shows waarin ze kon buigen, salueren en zelfs schieten met een pistool. In 1647 bezocht ze Amsterdam. Tijdens een wandeling door de stad zakte Hansken plotseling door een houten brug. De zware olifant werd gelukkig gered en raakte niet ernstig gewond. Het incident maakte indruk en bleef jarenlang onderdeel van Amsterdamse verhalen. Hansken bezocht de stad uiteindelijk vier keer en zelfs Rembrandt tekende haar! Zo werd een olifant een kleine legende in de geschiedenis van Amsterdam. De brug waar het om gaat zat op deze plek! Vroeger liep hier het olifantspad langs de Molenwatering. Natuurlijk zou daar nu wel een olifant overheen kunnen.',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Hansken.rembrandt.jpg/390px-Hansken.rembrandt.jpg',
-    color: '#3f51b5' // blue
-  },
-  {
-    lat: 52.366505,
-    lng: 4.904601,
-    title: 'De M.S. Vaz Diasbrug (brug 238)',
-    description: 'Wist je dat deze brug een schuilkelder tegen nucleaire aanvallen bevat? Deze basculebrug in Amsterdam-Centrum verbindt het Jonas Daniel Meijerplein met de Weesperstraat en overspant de Nieuwe Herengracht. De brug is vernoemd naar Mozes Salomon Vaz Dias, oprichter van het eerste journalistieke persbureau van Europa. De huidige brug dateert uit 1964. Aan de ene kant van het water zit de machinekamer en aan de andere kant een schuilkelder.',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Brug_238%2C_overzicht2.jpg/399px-Brug_238%2C_overzicht2.jpg',
-    color: '#008000' // green
-  },
-  {
-    lat: 52.360790,
-    lng: 4.876985,
-    title: 'De Vondelbunker (Brug 200: de Vondelbrug)',
-    description: 'Verborgen onder de Vondelbrug in het Vondelpark ligt de Vondelbunker, een voormalige nucleaire schuilkelder uit de Koude Oorlog. Tegenwoordig is deze unieke locatie een bruisend cultureel centrum, gerund door een collectief van vrijwilligers. Bij de opening was er nog geen bestemming voor de grote betonnen ruimte in het noordelijke bruggenhoofd. Plannen om er een openbaar urinoir in onder te brengen gingen niet door. Uiteindelijk nam de Bescherming Bevolking (BB) de ruimte in gebruik als schuilplaats.',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Vondelbrug.JPG/399px-Vondelbrug.JPG',
-    color: '#008000' // green
-  },
-  {
-    lat: 52.369124,
-    lng: 4.889797,
-    title: 'Begijnhof 34',
-    description: 'Hier is 1 van de 2 huizen te vinden met de oudste gevel van Amsterdam (ca. 1530). Het zijn geheel houten huizen, maar van het latere type: ze zijn hoger en hebben stenen zijmuren.',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Begijnhof%2C_Amsterdam.jpg/532px-Begijnhof%2C_Amsterdam.jpg',
-    color: '#ff6f61' // coral red
-  },
-  {
-    lat: 52.3763121,
-    lng: 4.9001456,
-    title: 'Zeedijk 1',
-    description: 'Hier is 1 van de 2 huizen te vinden met de oudste gevel van Amsterdam (ca. 1530). Het zijn geheel houten huizen, maar van het latere type: ze zijn hoger en hebben stenen zijmuren.',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Aepjen-amsterdam.jpg/520px-Aepjen-amsterdam.jpg',
-    color: '#ff6f61' // coral red
-  },
-  {
-    lat: 52.370059,
-    lng: 4.891800,
-    title: 'Het mirakel van Amsterdam (Enge Kapelsteeg 2)',
-    description: 'In 1345 gebeurde er een wonder in Amsterdam. Een hostie bleef ongeschonden in het vuur na een zieke man het had uitgebraakt. Dit werd het Mirakel van Amsterdam en wordt elk jaar op 15 maart herdacht. Op de plek waar dit gebeurde is een kapel gebouwd, als je naar de overkant van de straat loopt op het Rokin dan kan je de koepel nog zien! Ook is op het Rokin een Romeinse zuil geplaatst die naar dit mirakel verwijst.',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Eucharistic_Miracle_of_Amsterdam_by_Jacob_Cornelisz_1518.png/390px-Eucharistic_Miracle_of_Amsterdam_by_Jacob_Cornelisz_1518.png',
-    color: '#ff6f61' // coral red
-  },
-  {
-    lat: 52.371164,
-    lng: 4.891840,
-    title: 'De Papagaai (Kalverstraat 58)',
-    description: 'De Papegaai, officieel bekend als de Sint Petrus en Pauluskerk, is een verborgen juweeltje in Amsterdam. Oorspronkelijk was hier een schuilkerk: de katholieken komen bijeen in het woonhuis van de welgestelde familie Bout (een vogelhandelaar, vandaar De Papegaai). Als deze ruimte te klein wordt, wordt er in 1710 achter het huis een kerkje gebouwd.',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/De_Papegaai.JPG/399px-De_Papegaai.JPG',
-    color: '#ff6f61' // coral red
-  },
-  {
-    lat: 52.370676,
-    lng: 4.896327,
-    title: 'Het Spinhuis (Oudezijds Achterburgwal 185)',
-    description: 'Dit poortje is nog een overblijfsel van het vrouwentuchthuis, het Spinhuis. Vrouwen die hier moesten zitten vanwege ‘lichte zeden’ of armoede werden verplicht om te spinnen. Bizar genoeg ligt het nu tegenover de Universiteitsbibliotheek — van tucht naar kennis!',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Spinhuispoortje.jpg/390px-Spinhuispoortje.jpg',
-    color: '#ff6f61' // coral red
-  },
-  {
-    lat: 52.372060,
-    lng: 4.905604,
-    title: 'Montelbaanstoren (Oudeschans 2)',
-    description: 'De Montelbaanstoren werd in 1516 gebouwd als verdedigingstoren aan de Oude Schans. Later kreeg hij een sierlijke opbouw, maar door de slappe grond begon hij te verzakken. Men zegt dat paarden en kabels nodig waren om hem recht te houden. De klok liep zó slecht, dat Amsterdammers hem liefkozend “Malle Jaap” gingen noemen.',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Oudeschans.jpg/500px-Oudeschans.jpg',
-    color: '#ff6f61' // coral red
-  },
-  {
-    lat: 52.376454512517356,
-    lng: 4.902270687792611,
-    title: 'De Schreierstoren',
-    description: 'Hier vertrokken schepen naar de zee, en hier namen geliefden afscheid. De naam komt van "Schreyhoeckstoren" (scherpe hoek), maar mensen dachten lang dat het “schreien” betekende – huilende vrouwen dus.',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Schreierstoren2.jpg/399px-Schreierstoren2.jpg',
-    color: '#ff6f61' // coral red
-  },
-  {
-    lat: 52.36775644339379,
-    lng: 4.891051830883985,
-    title: 'De Rasphuispoort',
-    description: 'In het Rasphuis – de eerste moderne Amsterdamse gevangenis – moesten dwangarbeiders Braziliaans hout tot poeder raspen en werden zij zwaar gestraft, soms zelfs onder water gezet. Later werd hier, ironisch genoeg, het eerste overdekte zwembad van Amsterdam gebouwd. In het reliëf op de poort zie je een wagen met Braziliaans hout en de Latijnse inscriptie die vrij vertaald luidt: ‘Wilde beesten moet men temmen’.',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Rasphuis0.jpg/300px-Rasphuis0.jpg',
-    color: '#ff6f61' // coral red
-  },
-  {
-    lat: 52.365207122159916,
-    lng: 4.900645904339913,
-    title: 'Het huis met de bloedvlekken (Amstel 216)',
-    description: 'Aan de Amstel op nummer 216 staat een prachtig stadspaleis met een duister verleden: het Huis met de Bloedvlekken. Zo genoemd omdat op de buitenmuren van het huis de eeuwenoude graffiti te zien is die oud-burgemeester Coenraad van Beuningen daar met zijn eigen bloed op de muren kalkte. De raadselachtige tekens zijn er om onverklaarbare redenen niet af te boenen en na honderden jaren nog duidelijk zichtbaar.',
-    image: 'https://www.amsterdam.nl/publish/pages/827616/amstel216_bloedvlekken.jpg',
-    color: '#ff6f61' // coral red
-  },
-  {
-    lat: 52.381550216336564,
-    lng: 4.889424927607641,
-    title: 'De Huddesteen in de Eenhoornsluis',
-    description: 'Wandel je langs de Eenhoornsluis, dan kijk je zo naar een stukje verborgen geschiedenis: de Huddesteen. Deze eenvoudige steen met een groef lijkt misschien onopvallend, maar sinds 1684 gaf hij de hoogte van de zeedijken aan ten opzichte van het "Amsterdams Peil" — een waterpeil waar heel Nederland zich op baseert. Genoemd naar burgemeester Johannes Hudde, was dit een van de acht stenen die verspreid over de stad het water nauwlettend in de gaten hielden. Eeuwenlang dacht men dat deze bij de Eenhoornsluis de enige overlevende was, tot er in 2013 plotseling een tweede opdook tijdens de sloop van De Nieuwe Brug bij het Damrak.',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Huddesteen_eenhoornsluis.jpg/500px-Huddesteen_eenhoornsluis.jpg',
-    color: '#ff6f61' // coral red
-  },
-  {
-    lat: 52.36828099488704,
-    lng: 4.9372528791088275,
-    title: 'Veemarkt',
-    description: 'Dit stukje van Amsterdam heeft een bloederige geschiedenis, voor dieren dan... Tegen het einde van de 19de eeuw is de oude haven van Amsterdam te klein geworden voor de steeds groter wordende schepen; bovendien maken de sporen die naar het Centraal Station (1889) gaan, de havens moeilijk bereikbaar. Het Oostelijk havengebied is de vervanging van de haven met veel kunstmatige eilandjes. Op Cruquiuseiland komen in 1887 de veemarkt en het abattoir. Om het veemarktterrein komen stallen voor koeien en kalveren, paarden, schapen en varkens. Later komt het gemeentelijk douane-entrepot vlak naast de veemarkt. Langs de Cruquiusweg komen in de 19de eeuw ook zeven entrepotpakhuizen met de namen van de weekdagen. Je kan nu nog de poort zien de woningen van de marktmeester en de waagmeester en het kantine gebouw!',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Veemarkt_Amsterdam_hek.JPG/375px-Veemarkt_Amsterdam_hek.JPG',
-    color: '#ff6f61' // coral red
-  },
-  {
-    lat: 52.378628337197824,
-    lng: 4.894072157202096,
-    title: 'Middeleeuwse stadsmuur',
-    description: 'Vanwege kadewerkzaamheden werd het grachtenwater uit het Singel weggepompt, zodat een deel van de bakstenen kon worden verwijderd. Achter deze stenen bleek een deel van de Amsterdamse stadsmuur te zitten, bestaande uit 27 Middeleeuwse natuurstenen. De stadsmuur was gebouwd met stenen van dertig bij zeventig centimeter, in opdracht van landsheer Maximiliaan van Oostenrijk  en beschermde de stad tussen 1480 en 1603. De muur werd verstevigd met grote steunberen, die dienden als een soort fundering van de halfronde bogen. Die bogen waren rond de vijf meter hoog, waar vervolgens een looppad overheen liep. Vanaf dit pad verdedigden soldaten de stadsmuur. Eindelijk restanten gevonden van de oude middeleeuwse stadsmuur! Zie je de grote stenen zitten in de kade? Aan de overkant van het Singel heb je beter zicht!',
-    image: 'https://www.amsterdamhv.nl/pictures/khan/j304-khan.webp',
-    color: '#ff6f61' // coral red
-  },
-  {
-    lat: 52.37429847644022,
-    lng: 4.901228303839898,
-    title: 'Middeleeuwse stadsmuur',
-    description: 'In 1481 wordt begonnen met de bouw van de stadsmuur. Alle Amsterdammers moeten letterlijk hun steentje bijdragen; de herkomst van dit gezegde komt hier vandaan. Men moet meehelpen heien of graven, een geldbedrag schenken of een groot aantal bakstenen leveren. De muur is zes meter hoog en heeft verschillende verdedigingstorens. In 1601 wordt de oude mid­del­eeuw­se stads­muur af­ge­bro­ken en ver­van­gen door een nieu­we. Stuk­ken van de oude muur wor­den on­der meer ge­bruikt voor de bouw van de Zui­der­kerk. Een an­der deel van de ste­nen komt te­recht in hui­zen die rond 1600 ge­bouwd wor­den in de om­ge­ving van de Nieuw­markt en het Wa­ter­loop­lein. In de Ban­tam­mer­brug bij de Gel­der­se­ka­de zijn dui­de­lijk zicht­ba­re ste­nen van de oude stads­muur ver­werkt. Op de ­fo­to pre­cies in het mid­den de gro­te zes na­tuur­ste­nen in de knik.',
-    image: 'https://i0.wp.com/overamsterdam.nl/wp-content/uploads/2019/07/geldersekade2019_klein.jpg?resize=280%2C280&ssl=1',
-    color: '#ff6f61' // coral red
-  },
-  {
-    lat: 52.34590803685165,
-    lng: 4.902679890794791,
-    title: 'Geheime zender in De Wolkenkrabber (Victorieplein 45)',
-    description: 'In september 1944 werd vanuit een appartement in het 12-verdiepingenhuis, beter bekend onder de bijnaam De Wolkenkrabber, radiocontact gelegd met een Brits verkenningsvliegtuig. Verzetsman Dijckmeester zond daar twee weken lang belangrijke berichten naar Londen. Terwijl verzetsman Sonderman met een uitkijkploeg de wacht hield op straat, werkte een radiotelegrafist vanuit de flat aan het Daniël Willinkplein. Toen de Duitsers de zender bijna opspoorden, wist het team op tijd te ontsnappen en verplaatste de zendpost zich via Amsterdam naar Aalsmeer, Purmerend en Monnickendam.',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/12-verdiepingenhuis_2019_%281%29.jpg/399px-12-verdiepingenhuis_2019_%281%29.jpg',
-    color: '#ffb300' // amber/yellow
-  },
-  {
-    lat: 52.366311,
-    lng: 4.892244,
-    title: 'De Carlton-crash',
-    description: 'Als je nu over de Reguliersdwarsstraat loopt dan zie je op deze plek een gebouw staan wat niet bij de andere gebouwen in deze straat past. In de nacht van 26 op 27 april 1943 om 02:34 is hier een Engelse bommenwerper neergestort die door een Duits vliegtuig was neergehaald. Daarbij werd een reeks gebouwen verwoest aan de Reguliersdwarsstraat en het Singel, waaronder het hotelgebouw Carlton, waar op dat ogenblik een vestiging van de Duitse Luftwaffe gevestigd was. De zeven bemanningsleden van het toestel kwamen allen om, op de grond vielen zes burgerdoden en drie Duitse militaire slachtoffers. De brand die na het neerstorten ontstond geldt als een van de grootste Amsterdamse stadsbranden, een compleet blok tussen het Singel en de Reguliersdwarsstraat werd in de as gelegd.',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/HalifaxopCarlton1943.jpg/399px-HalifaxopCarlton1943.jpg',
-    color: '#ffb300' // amber/yellow
-  },
-  {
-    lat: 52.37266138380729,
-    lng: 4.891870122768642,
-    title: ' Schietpartij op de Dam',
-    description: 'Op 7 mei 1945, slechts twee dagen na de Duitse capitulatie, vierde Amsterdam voorzichtig de bevrijding op de Dam. Duizenden mensen verzamelden zich om de komst van Canadese troepen af te wachten. Plots openden Duitse mariniers, nog gelegerd in de Groote Club op de hoek van de Dam, het vuur op de menigte. De paniek was enorm. De schietpartij duurde zo’n twee uur en eiste minstens 32 levens; tientallen mensen raakten gewond. Tot op de dag van vandaag is het onduidelijk wat precies de aanleiding was. Tijdens de schietpartij zocht een groep mensen bescherming achter draaiorgel het Snotneusje. Het draaiorgel is nu in de collectie van het Amsterdam Museum.',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Dam16.jpg/500px-Dam16.jpg',
-    color: '#ffb300' // amber/yellow
-  }
-];
+let routeControl = null;
+let userLocationMarker = null;
+let pickedStartLatLng = null;
+let pickedStartMarker = null;
+let isPickingStart = false;
 
-// Add points with custom markers that change color based on the 'color' field in mapPoints
-mapPoints.forEach(point => {
-  const customIcon = L.divIcon({
+const markerLayer = L.layerGroup().addTo(map);
+
+function setStatus(message) {
+  controls.status.textContent = message;
+}
+
+function getActiveCategories() {
+  return new Set(
+    controls.categoryToggles
+      .filter((toggle) => toggle.checked)
+      .map((toggle) => toggle.value)
+  );
+}
+
+function getSelectedRouteCategories() {
+  return controls.routeCategoryToggles
+    .filter((toggle) => toggle.checked)
+    .map((toggle) => toggle.value);
+}
+
+function getSelectedRouteDistance() {
+  const selected = controls.routeDistanceRadios.find((radio) => radio.checked);
+  return selected ? Number(selected.value) : 5;
+}
+
+function getSelectedStartMode() {
+  const selected = controls.routeStartRadios.find((radio) => radio.checked);
+  return selected ? selected.value : 'nearest';
+}
+
+function markerIcon(color) {
+  return L.divIcon({
     className: 'custom-icon',
-    html: `<div style="background-color: ${point.color}; width: 20px; height: 20px; border-radius: 50%;"></div>`,
-    iconSize: [20, 20],
-    iconAnchor: [10, 10],  // Adjust anchor point to center the icon properly
+    html: `<span class="marker-dot" style="--dot-color:${color}"></span>`,
+    iconSize: [22, 22],
+    iconAnchor: [11, 11]
+  });
+}
+
+function renderMarkers() {
+  markerLayer.clearLayers();
+  const activeCategories = getActiveCategories();
+
+  mapPoints.forEach((point, index) => {
+    if (!activeCategories.has(point.category)) {
+      return;
+    }
+
+    const color = categoryMeta[point.category]?.color || '#555';
+    const marker = L.marker([point.lat, point.lng], { icon: markerIcon(color) });
+    marker.bindTooltip(point.title);
+    marker.on('click', () => {
+      window.open(`detail.html?id=${index}`, '_blank', 'noopener,noreferrer');
+    });
+    marker.addTo(markerLayer);
+  });
+}
+
+function saveMapState() {
+  const center = map.getCenter();
+  const zoom = map.getZoom();
+  const state = { center: [center.lat, center.lng], zoom };
+  localStorage.setItem(MAP_STATE_KEY, JSON.stringify(state));
+}
+
+function clearRoute() {
+  if (routeControl) {
+    map.removeControl(routeControl);
+    routeControl = null;
+    setStatus('Route gewist.');
+  }
+}
+
+function clearPickedStart() {
+  pickedStartLatLng = null;
+  if (pickedStartMarker) {
+    map.removeLayer(pickedStartMarker);
+    pickedStartMarker = null;
+  }
+}
+
+function distanceInKm(a, b) {
+  return map.distance([a.lat, a.lng], [b.lat, b.lng]) / 1000;
+}
+
+function nearestPoint(origin, points) {
+  let nearest = null;
+  let minDistance = Number.POSITIVE_INFINITY;
+
+  points.forEach((point) => {
+    const dist = distanceInKm({ lat: origin[0], lng: origin[1] }, point);
+    if (dist < minDistance) {
+      minDistance = dist;
+      nearest = point;
+    }
   });
 
-  const marker = L.marker([point.lat, point.lng], { icon: customIcon }).addTo(map);
+  return nearest;
+}
 
-  const popupContent = `
-    <strong>${point.title}</strong><br>
-    ${point.description}<br>
-    <img src="${point.image}" alt="${point.title}" width="200" style="margin-top: 5px; border-radius: 8px;" />
-  `;
-  marker.bindPopup(popupContent);
+function nearestNPoints(origin, points, maxCount) {
+  const originPoint = { lat: origin[0], lng: origin[1] };
+  return [...points]
+    .sort((a, b) => distanceInKm(originPoint, a) - distanceInKm(originPoint, b))
+    .slice(0, maxCount);
+}
+
+function chooseLoopPoints(start, candidates, targetKm) {
+  const nearCandidates = nearestNPoints([start.lat, start.lng], candidates, 12);
+  if (nearCandidates.length === 0) {
+    return [];
+  }
+
+  let best = null;
+  const startPoint = { lat: start.lat, lng: start.lng };
+
+  for (let i = 0; i < nearCandidates.length; i += 1) {
+    const a = nearCandidates[i];
+    const loopA = distanceInKm(startPoint, a) + distanceInKm(a, startPoint);
+    const scoreA = Math.abs(loopA - targetKm);
+    if (!best || scoreA < best.score) {
+      best = { score: scoreA, points: [a], loopDistance: loopA };
+    }
+
+    for (let j = i + 1; j < nearCandidates.length; j += 1) {
+      const b = nearCandidates[j];
+      const loopB =
+        distanceInKm(startPoint, a) +
+        distanceInKm(a, b) +
+        distanceInKm(b, startPoint);
+      const scoreB = Math.abs(loopB - targetKm);
+      if (!best || scoreB < best.score) {
+        best = { score: scoreB, points: [a, b], loopDistance: loopB };
+      }
+
+      for (let k = j + 1; k < nearCandidates.length; k += 1) {
+        const c = nearCandidates[k];
+        const loopC =
+          distanceInKm(startPoint, a) +
+          distanceInKm(a, b) +
+          distanceInKm(b, c) +
+          distanceInKm(c, startPoint);
+        const scoreC = Math.abs(loopC - targetKm);
+        if (!best || scoreC < best.score) {
+          best = { score: scoreC, points: [a, b, c], loopDistance: loopC };
+        }
+      }
+    }
+  }
+
+  return best ? best.points : [];
+}
+
+function setPickingMode(active) {
+  isPickingStart = active;
+  if (active) {
+    map.getContainer().classList.add('is-picking-start');
+    setStatus('Klik nu op de kaart om je route-startpunt te kiezen.');
+  } else {
+    map.getContainer().classList.remove('is-picking-start');
+  }
+}
+
+function buildRouteSuggestion() {
+  const kmTarget = getSelectedRouteDistance();
+  const selectedCategories = getSelectedRouteCategories();
+  const startMode = getSelectedStartMode();
+
+  if (selectedCategories.length === 0) {
+    setStatus('Selecteer minstens een routecategorie.');
+    return;
+  }
+
+  const candidatePoints = mapPoints.filter((point) => selectedCategories.includes(point.category));
+  if (candidatePoints.length < 1) {
+    setStatus('Geen punten beschikbaar voor de geselecteerde categorieen.');
+    return;
+  }
+
+  let startLatLng = null;
+  const center = map.getCenter();
+
+  if (startMode === 'map-click') {
+    if (!pickedStartLatLng) {
+      setStatus('Kies eerst een startpunt op de kaart.');
+      return;
+    }
+    startLatLng = { lat: pickedStartLatLng.lat, lng: pickedStartLatLng.lng };
+  } else if (startMode === 'my-location') {
+    if (!userLocationMarker) {
+      setStatus('Gebruik eerst Toon mijn locatie of kies een ander starttype.');
+      return;
+    }
+    const user = userLocationMarker.getLatLng();
+    startLatLng = { lat: user.lat, lng: user.lng };
+  } else {
+    startLatLng = { lat: center.lat, lng: center.lng };
+  }
+
+  const stops = chooseLoopPoints(startLatLng, candidatePoints, kmTarget);
+  if (stops.length === 0) {
+    setStatus('Kon geen geschikt rondje bouwen. Probeer andere categorieen of afstand.');
+    return;
+  }
+
+  const waypoints = [
+    L.latLng(startLatLng.lat, startLatLng.lng),
+    ...stops.map((point) => L.latLng(point.lat, point.lng)),
+    L.latLng(startLatLng.lat, startLatLng.lng)
+  ];
+
+  clearRoute();
+
+  routeControl = L.Routing.control({
+    waypoints,
+    routeWhileDragging: false,
+    addWaypoints: false,
+    draggableWaypoints: false,
+    fitSelectedRoutes: true,
+    lineOptions: {
+      styles: [{ color: '#111827', opacity: 0.85, weight: 5 }]
+    },
+    show: false,
+    createMarker: () => null
+  }).addTo(map);
+
+  setStatus(`Rondje gemaakt: ongeveer ${kmTarget} km met ${stops.length} tussenstops.`);
+}
+
+controls.categoryToggles.forEach((toggle) => {
+  toggle.addEventListener('change', () => {
+    renderMarkers();
+    setStatus('Filters bijgewerkt.');
+  });
 });
+
+controls.routeButton.addEventListener('click', buildRouteSuggestion);
+controls.clearRouteButton.addEventListener('click', clearRoute);
+controls.pickStartButton.addEventListener('click', () => {
+  const mode = getSelectedStartMode();
+  if (mode !== 'map-click') {
+    setStatus('Selecteer eerst starttype: Kies startpunt op de kaart.');
+    return;
+  }
+  setPickingMode(true);
+});
+
+controls.routeStartRadios.forEach((radio) => {
+  radio.addEventListener('change', () => {
+    if (radio.value !== 'map-click' && radio.checked) {
+      setPickingMode(false);
+    }
+  });
+});
+
+map.on('click', (event) => {
+  if (!isPickingStart) {
+    return;
+  }
+
+  clearPickedStart();
+  pickedStartLatLng = event.latlng;
+  pickedStartMarker = L.circleMarker(event.latlng, {
+    radius: 9,
+    color: '#ffffff',
+    fillColor: '#2563eb',
+    fillOpacity: 1,
+    weight: 2
+  }).addTo(map);
+  pickedStartMarker.bindTooltip('Gekozen startpunt').openTooltip();
+  setPickingMode(false);
+  setStatus('Startpunt op kaart is opgeslagen.');
+});
+
+controls.locateButton.addEventListener('click', () => {
+  if (!navigator.geolocation) {
+    setStatus('Geolocatie wordt niet ondersteund door je browser.');
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      const coords = [position.coords.latitude, position.coords.longitude];
+
+      if (userLocationMarker) {
+        map.removeLayer(userLocationMarker);
+      }
+
+      userLocationMarker = L.circleMarker(coords, {
+        radius: 10,
+        color: '#ffffff',
+        fillColor: '#111827',
+        fillOpacity: 1,
+        weight: 2
+      }).addTo(map);
+
+      userLocationMarker.bindTooltip('Jij bent hier').openTooltip();
+      map.setView(coords, Math.max(map.getZoom(), 14));
+      setStatus('Je locatie is toegevoegd aan de kaart.');
+    },
+    () => {
+      setStatus('Locatie ophalen is niet gelukt. Controleer je browserrechten.');
+    },
+    { enableHighAccuracy: true, timeout: 10000 }
+  );
+});
+
+controls.resetButton.addEventListener('click', () => {
+  map.setView(AMSTERDAM_CENTER, DEFAULT_ZOOM);
+  setStatus('Kaartweergave is gereset naar Amsterdam centrum.');
+});
+
+map.on('moveend zoomend', saveMapState);
+
+renderMarkers();
+setStatus('Klaar! Kies een categorie of laat een route samenstellen.');
