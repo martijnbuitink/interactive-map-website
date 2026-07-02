@@ -44,6 +44,7 @@ function readSavedMapState() {
 }
 
 const savedState = readSavedMapState();
+const mobileQuery = window.matchMedia('(max-width: 960px)');
 
 const map = L.map('map', {
   scrollWheelZoom: true,
@@ -51,6 +52,11 @@ const map = L.map('map', {
   touchZoom: true,
   tap: true
 }).setView(savedState.center, savedState.zoom);
+
+const walkingRouter = L.Routing.osrmv1({
+  serviceUrl: 'https://router.project-osrm.org/route/v1',
+  profile: 'foot'
+});
 
 L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Humanitarian style'
@@ -66,6 +72,23 @@ const markerLayer = L.layerGroup().addTo(map);
 
 function setStatus(message) {
   controls.status.textContent = message;
+}
+
+function setMobileInteractionMode(isMobile) {
+  if (isMobile) {
+    map.dragging.disable();
+    map.touchZoom.disable();
+    map.scrollWheelZoom.disable();
+    map.doubleClickZoom.disable();
+    map.boxZoom.disable();
+    return;
+  }
+
+  map.dragging.enable();
+  map.touchZoom.enable();
+  map.scrollWheelZoom.enable();
+  map.doubleClickZoom.enable();
+  map.boxZoom.enable();
 }
 
 function getActiveCategories() {
@@ -101,6 +124,10 @@ function markerIcon(color) {
   });
 }
 
+function isMobileLayout() {
+  return mobileQuery.matches;
+}
+
 function renderMarkers() {
   markerLayer.clearLayers();
   const activeCategories = getActiveCategories();
@@ -112,9 +139,17 @@ function renderMarkers() {
 
     const color = categoryMeta[point.category]?.color || '#555';
     const marker = L.marker([point.lat, point.lng], { icon: markerIcon(color) });
-    marker.bindTooltip(point.title);
+    if (!isMobileLayout()) {
+      marker.bindTooltip(point.title, { direction: 'top', sticky: true, opacity: 0.95 });
+    }
     marker.on('click', () => {
-      window.open(`detail.html?id=${index}`, '_blank', 'noopener,noreferrer');
+      const detailUrl = `detail.html?id=${index}`;
+      if (isMobileLayout()) {
+        window.location.href = detailUrl;
+        return;
+      }
+
+      window.open(detailUrl, '_blank', 'noopener,noreferrer');
     });
     marker.addTo(markerLayer);
   });
@@ -141,6 +176,7 @@ function clearPickedStart() {
     map.removeLayer(pickedStartMarker);
     pickedStartMarker = null;
   }
+  setPickingMode(false);
 }
 
 function distanceInKm(a, b) {
@@ -169,50 +205,31 @@ function nearestNPoints(origin, points, maxCount) {
     .slice(0, maxCount);
 }
 
-function chooseLoopPoints(start, candidates, targetKm) {
-  const nearCandidates = nearestNPoints([start.lat, start.lng], candidates, 12);
-  if (nearCandidates.length === 0) {
-    return [];
-  }
+function routeCoordinates(waypoints) {
+  return waypoints.map((waypoint) => `${waypoint.lng},${waypoint.lat}`).join(';');
+}
 
-  let best = null;
-  const startPoint = { lat: start.lat, lng: start.lng };
+async function routeDistanceMeters(waypoints) {
+  const controller = new AbortController();
+  const timeoutId = window.setTimeout(() => controller.abort(), 12000);
 
-  for (let i = 0; i < nearCandidates.length; i += 1) {
-    const a = nearCandidates[i];
-    const loopA = distanceInKm(startPoint, a) + distanceInKm(a, startPoint);
-    const scoreA = Math.abs(loopA - targetKm);
-    if (!best || scoreA < best.score) {
-      best = { score: scoreA, points: [a], loopDistance: loopA };
+  try {
+    const response = await fetch(
+      `https://router.project-osrm.org/route/v1/foot/${routeCoordinates(waypoints)}?overview=false&steps=false&alternatives=false&annotations=false`,
+      { signal: controller.signal }
+    );
+
+    if (!response.ok) {
+      return Number.POSITIVE_INFINITY;
     }
 
-    for (let j = i + 1; j < nearCandidates.length; j += 1) {
-      const b = nearCandidates[j];
-      const loopB =
-        distanceInKm(startPoint, a) +
-        distanceInKm(a, b) +
-        distanceInKm(b, startPoint);
-      const scoreB = Math.abs(loopB - targetKm);
-      if (!best || scoreB < best.score) {
-        best = { score: scoreB, points: [a, b], loopDistance: loopB };
-      }
-
-      for (let k = j + 1; k < nearCandidates.length; k += 1) {
-        const c = nearCandidates[k];
-        const loopC =
-          distanceInKm(startPoint, a) +
-          distanceInKm(a, b) +
-          distanceInKm(b, c) +
-          distanceInKm(c, startPoint);
-        const scoreC = Math.abs(loopC - targetKm);
-        if (!best || scoreC < best.score) {
-          best = { score: scoreC, points: [a, b, c], loopDistance: loopC };
-        }
-      }
-    }
+    const data = await response.json();
+    return Array.isArray(data.routes) && data.routes[0] ? data.routes[0].distance : Number.POSITIVE_INFINITY;
+  } catch (error) {
+    return Number.POSITIVE_INFINITY;
+  } finally {
+    window.clearTimeout(timeoutId);
   }
-
-  return best ? best.points : [];
 }
 
 function setPickingMode(active) {
@@ -225,7 +242,7 @@ function setPickingMode(active) {
   }
 }
 
-function buildRouteSuggestion() {
+async function buildRouteSuggestion() {
   const kmTarget = getSelectedRouteDistance();
   const selectedCategories = getSelectedRouteCategories();
   const startMode = getSelectedStartMode();
@@ -261,22 +278,64 @@ function buildRouteSuggestion() {
     startLatLng = { lat: center.lat, lng: center.lng };
   }
 
-  const stops = chooseLoopPoints(startLatLng, candidatePoints, kmTarget);
-  if (stops.length === 0) {
+  const targetMeters = kmTarget * 1000;
+  const nearbyCandidates = nearestNPoints([startLatLng.lat, startLatLng.lng], candidatePoints, 6);
+  if (nearbyCandidates.length === 0) {
     setStatus('Kon geen geschikt rondje bouwen. Probeer andere categorieen of afstand.');
     return;
   }
 
-  const waypoints = [
-    L.latLng(startLatLng.lat, startLatLng.lng),
-    ...stops.map((point) => L.latLng(point.lat, point.lng)),
-    L.latLng(startLatLng.lat, startLatLng.lng)
-  ];
+  setStatus('Route aan het berekenen...');
+
+  const candidateSets = [];
+  nearbyCandidates.forEach((point) => {
+    candidateSets.push([point]);
+  });
+
+  for (let i = 0; i < nearbyCandidates.length; i += 1) {
+    for (let j = i + 1; j < nearbyCandidates.length; j += 1) {
+      candidateSets.push([nearbyCandidates[i], nearbyCandidates[j]]);
+      candidateSets.push([nearbyCandidates[j], nearbyCandidates[i]]);
+    }
+  }
+
+  let bestUnderTarget = null;
+  let bestOverTarget = null;
+
+  for (const stopSet of candidateSets) {
+    const waypoints = [
+      L.latLng(startLatLng.lat, startLatLng.lng),
+      ...stopSet.map((point) => L.latLng(point.lat, point.lng)),
+      L.latLng(startLatLng.lat, startLatLng.lng)
+    ];
+
+    const routeMeters = await routeDistanceMeters(waypoints);
+    if (!Number.isFinite(routeMeters)) {
+      continue;
+    }
+
+    const candidate = { waypoints, routeMeters, stopCount: stopSet.length };
+
+    if (routeMeters <= targetMeters) {
+      if (!bestUnderTarget || routeMeters > bestUnderTarget.routeMeters) {
+        bestUnderTarget = candidate;
+      }
+    } else if (!bestOverTarget || routeMeters < bestOverTarget.routeMeters) {
+      bestOverTarget = candidate;
+    }
+  }
+
+  const selectedRoute = bestUnderTarget || bestOverTarget;
+  if (!selectedRoute) {
+    setStatus('Kon geen geschikt rondje bouwen. Probeer andere categorieen of afstand.');
+    return;
+  }
 
   clearRoute();
 
   routeControl = L.Routing.control({
-    waypoints,
+    router: walkingRouter,
+    waypoints: selectedRoute.waypoints,
     routeWhileDragging: false,
     addWaypoints: false,
     draggableWaypoints: false,
@@ -288,7 +347,8 @@ function buildRouteSuggestion() {
     createMarker: () => null
   }).addTo(map);
 
-  setStatus(`Rondje gemaakt: ongeveer ${kmTarget} km met ${stops.length} tussenstops.`);
+  const shownKm = (selectedRoute.routeMeters / 1000).toFixed(1);
+  setStatus(`Rondje gemaakt: ${shownKm} km, zo dicht mogelijk bij ${kmTarget} km.`);
 }
 
 controls.categoryToggles.forEach((toggle) => {
@@ -298,7 +358,9 @@ controls.categoryToggles.forEach((toggle) => {
   });
 });
 
-controls.routeButton.addEventListener('click', buildRouteSuggestion);
+controls.routeButton.addEventListener('click', () => {
+  buildRouteSuggestion();
+});
 controls.clearRouteButton.addEventListener('click', clearRoute);
 controls.pickStartButton.addEventListener('click', () => {
   const mode = getSelectedStartMode();
@@ -360,6 +422,7 @@ controls.locateButton.addEventListener('click', () => {
 
       userLocationMarker.bindTooltip('Jij bent hier').openTooltip();
       map.setView(coords, Math.max(map.getZoom(), 14));
+      map.invalidateSize();
       setStatus('Je locatie is toegevoegd aan de kaart.');
     },
     () => {
@@ -370,11 +433,24 @@ controls.locateButton.addEventListener('click', () => {
 });
 
 controls.resetButton.addEventListener('click', () => {
+  clearRoute();
+  clearPickedStart();
+  if (userLocationMarker) {
+    map.removeLayer(userLocationMarker);
+    userLocationMarker = null;
+  }
   map.setView(AMSTERDAM_CENTER, DEFAULT_ZOOM);
+  map.invalidateSize();
   setStatus('Kaartweergave is gereset naar Amsterdam centrum.');
 });
 
 map.on('moveend zoomend', saveMapState);
+
+setMobileInteractionMode(isMobileLayout());
+mobileQuery.addEventListener?.('change', (event) => {
+  setMobileInteractionMode(event.matches);
+  renderMarkers();
+});
 
 renderMarkers();
 setStatus('Klaar! Kies een categorie of laat een route samenstellen.');
